@@ -2,27 +2,46 @@
 {% load staticfiles %}
 
 {% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/photoswipe.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/galeria.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/revista.css' %}">
 {% endblock headPlus %}
 
 {% block scriptPlus %}
-	<script src="{% static 'web/js/carrousel.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'web/js/loading.js' %}"></script>
+	<script src="{% static 'web/js/galeria.js' %}"></script>
+	
 {% endblock scriptPlus %}
 
-{% block activeRevistas %}active{% endblock activeRevistas %}
+{% block activeGal %}active{% endblock activeGal %}
 
 {% block content %}
-    <div class="slideshow-container" style='margin-top: 10px;'>
-        {% for image in imagenes %}
-            <div class="mySlides col-12">
-                <div class="numbertext">{{forloop.counter}}/{{total}}</div>
-                <img class='ivera_img' src="{{image.link.url}}">
-            </div>
-        {% endfor %}
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
-    
-    
-{% endblock %}
+	{% include "web/photoswipe.html" %}
+	<div class="row img col-12" style="padding:0px 15px;">
+		<h1 class="white-text text-center"><strong>{{revista.nombre}}</strong></h1>
+        <div class='my-gallery'>
+            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+                <a href="{{revista.tapa.url}}" itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
+                    <img id='tapa' src="{{revista.tapa.url}}" alt="{{revista.tapa.name}}" itemprop="thumbnail">
+                </a>
+                <figcaption class="white-text" itemprop="caption description"><strong>{{image.name}}</strong></figcaption>
+            </figure>
+			{% for image in imagenes %}
+				<figure id='hidden' class="image col-xs-12 col-sm-3" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject" >
+					<a href="{{image.link.url}}" itemprop="contentUrl" data-size="{{image.link.width}}x{{image.link.height}}">
+						<img src="{{image.link.url}}" alt="{{image.name}}" itemprop="thumbnail">
+					</a>
+					<figcaption class="white-text" itemprop="caption description"><strong>{{image.name}}</strong></figcaption>
+				</figure>
+			{% endfor %}
+        </div>
+		{% if imagenes %}		
+			<div class="loading text-center">
+				<h1 class="white-text">CARGANDO...</h1>
+			</div>
+		{% endif %}
+	</div>
+{% endblock content %}

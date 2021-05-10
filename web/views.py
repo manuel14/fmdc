@@ -273,7 +273,7 @@ def revista(request, pk):
     return render(
         request,
         'web/revista.html',
-        {'imagenes': revista_imagenes, 'total': len(revista_imagenes)}
+        {'revista': revista, 'imagenes': revista_imagenes, 'total': len(revista_imagenes)}
     )
 
 def error404(request, exception=None):
