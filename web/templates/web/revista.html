@@ -39,8 +39,9 @@
 				</figure>
 			{% endfor %}
         </div>
-		{% if imagenes %}		
-            <div class="loader"></div>
-		{% endif %}
+		
 	</div>
+    {% if imagenes %}		
+        <div class="loading"></div>
+	{% endif %}
 {% endblock content %}
