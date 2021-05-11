@@ -6,17 +6,18 @@
 	<link rel="stylesheet" href="{% static 'web/css/default-skin/default-skin.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/galeria.css' %}">
 	<link rel="stylesheet" href="{% static 'web/css/revista.css' %}">
+	<link rel="stylesheet" href="{% static 'web/css/loading-spinner.css' %}">
 {% endblock headPlus %}
 
 {% block scriptPlus %}
 	<script src="{% static 'web/js/photoswipe.min.js' %}"></script>
 	<script src="{% static 'web/js/photoswipe-ui-default.min.js' %}"></script>
-	<script src="{% static 'web/js/loading.js' %}"></script>
 	<script src="{% static 'web/js/galeria.js' %}"></script>
+	<script src="{% static 'web/js/loading-spinner.js' %}"></script>
 	
 {% endblock scriptPlus %}
 
-{% block activeGal %}active{% endblock activeGal %}
+{% block activeRevistas %}active{% endblock activeRevistas %}
 
 {% block content %}
 	{% include "web/photoswipe.html" %}
@@ -39,9 +40,7 @@
 			{% endfor %}
         </div>
 		{% if imagenes %}		
-			<div class="loading text-center">
-				<h1 class="white-text">CARGANDO...</h1>
-			</div>
+            <div class="loader"></div>
 		{% endif %}
 	</div>
 {% endblock content %}
