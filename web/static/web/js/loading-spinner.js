@@ -13,6 +13,5 @@ $(document).ready(function($) {
 });
 
 $(window).load(function() {
-	//$('.loader').hide('slow');
-	$('.loader').show();
+	$('.loader').hide('slow');
 });
