@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
-import os
 import json
 import random
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.views import generic
 from datetime import datetime
-from django.core.mail import EmailMessage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q, F
-from django.conf import settings
 
-from .forms import ContactForm
+
 from .models import (
     Actividad,
     Artista,
@@ -22,9 +19,7 @@ from .models import (
     EfemerideMes,
     Revista
 )
-from web.constants import IMAGE_EXTENSION_PATTERN, MP4_EXTENSION_PATTERN, PDF_EXTENSION_PATTERN
-from web.helpers import get_files_from_folder_path
-from web.helpers import safe_unicode_str
+from web.folder_service import FolderService
 
 
 def index(request):
@@ -34,23 +29,20 @@ def index(request):
 def imgLaterales(request):
     if not request.is_ajax():
         raise Http404('No se puede acceder a esta url.')
-    urls = [os.path.join(settings.MEDIA_URL + 'Laterales/', safe_unicode_str(fn)) for fn in os.listdir(settings.MEDIA_ROOT+'Laterales/')]
-    return HttpResponse(json.dumps(random.sample(urls, 6), cls=DjangoJSONEncoder, ensure_ascii=False))
+    images = FolderService.get_side_images(path='Laterales')
+    return HttpResponse(json.dumps(random.sample(images, 6), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 
 class GaleriaView(generic.ListView):
     template_name = 'web/galerias.html'
     
     def get_queryset(self):
-        images = [folder for folder in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos')
-                if os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Fotos/'+folder)
-        ]
-        videos = [folder for folder in os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos')
-                if os.listdir(settings.MEDIA_ROOT+'/archive/Galeria/Videos/'+folder)
-        ]
+        photo_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Fotos")
+        video_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Videos")
+        
         return {
-            'images': images,
-            'videos': videos
+            'images': photo_galleries,
+            'videos': video_galleries
         }
 
 
@@ -59,11 +51,11 @@ class GaleriaCView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        folder_letter = self.kwargs['path']
+        folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Fotos/Fotos Chamameseros/' + folder_letter
-        music_sheet_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
+        music_sheet_images = FolderService.get_files_from_folder(path=path)
         obj['images'] = music_sheet_images[0:4]
         obj['lazyImages'] = music_sheet_images[4:]
         return obj
@@ -79,7 +71,7 @@ class GaleriaDetailView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Fotos/' + folder_letter
-        gallery_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
+        gallery_images = FolderService.get_files_from_folder(path=path)
         obj['images'] = gallery_images[0:4]
         obj['lazyImages'] = gallery_images[4:]
         obj['name'] = folder_letter.replace('/', '')
@@ -91,11 +83,11 @@ class VideoView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        folder_letter = self.kwargs['path']
+        folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Videos/' + folder_letter
-        videos = get_files_from_folder_path(path=path, pattern=MP4_EXTENSION_PATTERN)
+        videos = FolderService.get_files_from_folder(path=path)
         obj['videos'] = videos
         return obj
 
@@ -159,11 +151,11 @@ class PartiturasCView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        folder_letter = self.kwargs['path']
+        folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
         path = '/archive/Material/Partituras/' + folder_letter
-        music_sheet_images = get_files_from_folder_path(path=path, pattern=IMAGE_EXTENSION_PATTERN)
+        music_sheet_images = FolderService.get_files_from_folder(path=path)
         obj['images'] = music_sheet_images
         return obj
 
@@ -173,11 +165,11 @@ class LetrasCView(generic.DetailView):
 
     def get_object(self):
         obj = {}
-        folder_letter = self.kwargs['path']
+        folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
         path = '/archive/Material/Letras/' + folder_letter
-        lyrics = get_files_from_folder_path(path=path, pattern=PDF_EXTENSION_PATTERN)
+        lyrics = FolderService.get_files_from_folder(path=path)
         obj['lyrics'] = lyrics
         return obj
 
@@ -226,6 +218,7 @@ def efemerides(request):
 def benefactores(request):
     return render(request, 'web/benefactores.html')
 
+
 def material(request):
     return render(request, 'web/material.html')
 
@@ -234,32 +227,9 @@ def partituras(request):
     return render(request, 'web/partituras.html')
 
 
-def cancionero(request):
-    return render(request, 'web/cancionero.html')
-
-
 def radio(request):
-    contents = {}
-    radio_contents_path = f"{settings.MEDIA_ROOT}/radio"
-    for folder in os.listdir(radio_contents_path):
-        # We need to add this hack to avoid UnicodeEncodeError with surrogates
-        encoded_folder = safe_unicode_str(folder)
-        folder_path = os.path.join(radio_contents_path, encoded_folder)
-        for file in os.listdir(folder_path):
-            encoded_file = safe_unicode_str(file)
-            if os.path.isfile(os.path.join(folder_path, file)):
-                relative_path = os.path.join(settings.MEDIA_URL, "radio", encoded_folder)
-                file_url = f"{relative_path}/{encoded_file}"
-                try:
-                    contents[encoded_folder].append({
-                        "name": encoded_file,
-                        "url": file_url 
-                    })
-                except KeyError:
-                    contents[encoded_folder] = [ {"name": encoded_file, "url": file_url} ]
-    for folder_name, folder_content in contents.items():
-        contents[folder_name] = sorted(folder_content, key=lambda item: item["name"])
-    contents = {k:v for k,v in sorted(contents.items(), key=lambda item: item[0])}
+    path = "/radio"
+    contents = FolderService.get_radio_contents(path)
     return render(request, 'web/radio.html', {"contents": contents})
 
 def revistas(request):

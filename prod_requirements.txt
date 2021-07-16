@@ -1,0 +1,5 @@
+psycopg2==2.8.3
+boto3
+django-storages
+gunicorn
+raven==6.10.0

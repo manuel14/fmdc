@@ -198,7 +198,6 @@ class Album(models.Model):
 
     def formatHelper(self, matchobj):
         url = settings.MEDIA_URL + 'archive/Discografias/' + matchobj.group(1)
-        print(f"url: {url}")
         return r'<audio controls preload="none"><source src="'+url+'" type="audio/mpeg">Su explorador es antiguo\. Actualicelo para reproducir audios\.</audio>'
 
     def save(self, *args, **kwargs):
@@ -253,8 +252,8 @@ class Actividad(models.Model):
     ACTIVIDAD = "A"
     PAGO_ACTIVIDAD = "P"
     tipos = (
-        (ACTIVIDAD, "Pago actividad"),
-        (PAGO_ACTIVIDAD, "Actividad")
+        (ACTIVIDAD, "Actividad"),
+        (PAGO_ACTIVIDAD, "Pago Actividad")
     )
     tipo = models.TextField(choices=tipos, default="A")
 

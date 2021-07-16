@@ -1,11 +1,8 @@
-
-import re
 import os
-from PIL import Image
-
+import re
 from django.conf import settings
-
 from web.constants import IMAGE_EXTENSION_PATTERN
+from web.helpers import get_width_and_height_from_image, safe_unicode_str
 
 
 def create_folder(path):
@@ -18,43 +15,6 @@ def create_folder(path):
         os.makedirs(path)
     except PermissionError:
         raise
-
-
-def get_width_and_height_from_image(path):
-    """
-    Args:
-        path: str: path to the image
-
-    Returns:
-        tuple: (height, width) of image
-    """
-    try:
-        opened_file = Image.open(path)
-        width, height = opened_file.size
-        return (height, width)
-    except OSError:
-        raise
-
-
-def copy_tmp_file_into_destination(tmp_file, destination_file):
-    with open(destination_file, 'wb+') as destination:
-        for chunk in tmp_file:
-            destination.write(chunk) 
-
-
-def safe_unicode_str(string):
-    """
-    Args
-        string: string you want to safe encode
-
-    Returns
-        str: safely converted string to avoid UnicodeEncodeErrors
-    """
-    return string.encode('utf-8', 'surrogateescape').decode()
-
-
-def extract_prefix_from_str(path, prefix):
-        return ''.join(path.split(prefix)[1:])
 
 
 def get_files_from_folder_path(path, pattern=None):
@@ -94,3 +54,42 @@ def get_files_from_folder_path(path, pattern=None):
             # file does not match the extension wanted so we ignore it
             continue
     return files
+
+
+def get_folder_names_from_path(path):
+    """
+    Args:
+        path(str): path to folder without preceding slash
+
+    Returns:
+        list of folders inside path
+    """
+    return [folder for folder in os.listdir(path) if os.listdir(path)]
+
+
+def get_radio_contents(path):
+    contents = {}
+    for folder in os.listdir(path):
+        # We need to add this hack to avoid UnicodeEncodeError with surrogates
+        encoded_folder = safe_unicode_str(folder)
+        folder_path = os.path.join(path, encoded_folder)
+        for file in os.listdir(folder_path):
+            encoded_file = safe_unicode_str(file)
+            if os.path.isfile(os.path.join(folder_path, file)):
+                relative_path = os.path.join(settings.MEDIA_URL, "radio", encoded_folder)
+                file_url = f"{relative_path}/{encoded_file}"
+                try:
+                    contents[encoded_folder].append({
+                        "name": encoded_file,
+                        "url": file_url 
+                    })
+                except KeyError:
+                    contents[encoded_folder] = [ {"name": encoded_file, "url": file_url} ]
+    for folder_name, folder_content in contents.items():
+        contents[folder_name] = sorted(folder_content, key=lambda item: item["name"])
+    contents = {k:v for k,v in sorted(contents.items(), key=lambda item: item[0])}
+    return contents
+
+
+def get_side_images(path):
+    return [os.path.join(settings.MEDIA_URL + path, safe_unicode_str(fn)) for fn in os.listdir(settings.MEDIA_ROOT+path)]
