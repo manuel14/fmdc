@@ -1,5 +1,5 @@
 -r dev_requirements.txt
-Django==2.1.15
+Django==2.2.24
 django_cleanup==4.0.0
 django-nested-admin==3.2.3
 Pillow==8.2.0
