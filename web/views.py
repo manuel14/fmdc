@@ -39,7 +39,7 @@ class GaleriaView(generic.ListView):
     def get_queryset(self):
         photo_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Fotos")
         video_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Videos")
-        
+        print(video_galleries)
         return {
             'images': photo_galleries,
             'videos': video_galleries
@@ -154,7 +154,7 @@ class PartiturasCView(generic.DetailView):
         folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
-        path = '/archive/Material/Partituras/' + folder_letter
+        path = '/archive/Material/Partituras/' + folder_letter.lower()
         music_sheet_images = FolderService.get_files_from_folder(path=path)
         obj['images'] = music_sheet_images
         return obj
@@ -168,7 +168,7 @@ class LetrasCView(generic.DetailView):
         folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
-        path = '/archive/Material/Letras/' + folder_letter
+        path = '/archive/Material/Letras/' + folder_letter.lower()
         lyrics = FolderService.get_files_from_folder(path=path)
         obj['lyrics'] = lyrics
         return obj
