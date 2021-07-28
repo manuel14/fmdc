@@ -11,6 +11,8 @@
 @media(min-width: 1024px){
     .thumbnail img{
         height: 50vh;
+        width: 100%;
+        object-fit: cover;
     }
 
     h2, h3{

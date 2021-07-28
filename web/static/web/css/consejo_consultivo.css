@@ -13,6 +13,7 @@
     .thumbnail img{
         height: 30vh;
         object-fit: cover;
+        width: 100%;
     }
 
     h2, h3{
