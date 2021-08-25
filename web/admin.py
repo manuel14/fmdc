@@ -108,7 +108,7 @@ class ActividadAdmin(nested_admin.NestedModelAdmin):
         ActividadImageInline,
     ]
     exclude = ('text',)
-    search_fields = ('title__title',)
+    search_fields = ('name',)
 
 
 class PagoActividadAdmin(nested_admin.NestedModelAdmin):
