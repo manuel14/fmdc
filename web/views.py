@@ -39,7 +39,6 @@ class GaleriaView(generic.ListView):
     def get_queryset(self):
         photo_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Fotos")
         video_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Videos")
-        print(video_galleries)
         return {
             'images': photo_galleries,
             'videos': video_galleries
@@ -86,7 +85,7 @@ class VideoView(generic.DetailView):
         folder_letter = self.kwargs.get('path', None)
         if folder_letter is None:
             return obj
-        path = '/archive/Galeria/Videos/' + folder_letter
+        path = '/archive/Galeria/Videos/' + folder_letter.lower()
         videos = FolderService.get_files_from_folder(path=path)
         obj['videos'] = videos
         return obj

@@ -18,7 +18,7 @@
 					<p class="white-text text-center">A&uacute;n no hay fotos cargadas.</p>
 				{% endfor %}
 			</ul>
-			{% if videos %}
+			{% if object_list.videos %}
 			<ul class="col-sm-6">
 				<a href="{% url 'videos' %}"><h2 class="text-center white-text"><strong>Videos</strong></h2></a>
 			</ul>
