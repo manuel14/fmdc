@@ -9,7 +9,7 @@
 
 {% block content %}
 	<div id="gal" class="row" style="padding:0px 15px;">
-		<h1 class="brown-text text-center"><strong>Videos</strong></h1>
+		<h1 class="white-text text-center"><strong>Videos</strong></h1>
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group"  role="group">
 				<a type="button" class="btn btn-primary" href="{% url 'videos' 'A/' %}">A</a>
@@ -54,9 +54,9 @@
 				
 				{% empty %}
 					{% if request.path|length > 8 %}
-						<h2 class="brown-text text-center">No poseemos videos relacionados con esta letra.</h2>
+						<h2 class="white-text text-center">No poseemos videos relacionados con esta letra.</h2>
 					{% else %}
-						<h2 class="brown-text text-center">Presione en cualquier letra para ver videos relacionados con esa letra. </h2>
+						<h2 class="white-text text-center">Presione en cualquier letra para ver videos relacionados con esa letra. </h2>
 					{% endif %}
 			{% endfor %}
 		</div>
