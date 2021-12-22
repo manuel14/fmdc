@@ -67,8 +67,7 @@ class S3Service():
         return self._get_s3_files_from_lookup(result)
 
     def get_folders_with_their_contents(self, path):
-        path = f"{self.path_prefix}{path}"
-        folders = self.get_s3_folders(path=path)
+        folders = self.get_folder_names_from_path(path=path)
         contents = {}
         for folder in folders:
             complete_path = f"{path}/{folder}"
