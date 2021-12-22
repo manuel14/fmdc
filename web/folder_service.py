@@ -17,7 +17,7 @@ class FolderService():
         return folder_service
     
     def get_files_from_folder(self, path):
-        self.folder_service.get_files_from_folder(path=path)
+        return self.folder_service.get_files_from_folder(path=path)
 
     def get_folder_names_from_path(self, path):
         contents = self.folder_service.get_folder_names_from_path(path)
