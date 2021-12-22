@@ -80,5 +80,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
 MEDIA_URL = '/media/'
 
 GRAPPELLI_ADMIN_TITLE = 'Fundacion memoria del chamame'
-
-SHOW_REVISTAS_VIEW = True
