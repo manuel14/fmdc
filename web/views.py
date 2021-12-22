@@ -21,6 +21,7 @@ from .models import (
 )
 from web.folder_service import FolderService
 
+folder_service = FolderService()
 
 def index(request):
     return render(request, 'web/index.html')
@@ -29,7 +30,7 @@ def index(request):
 def imgLaterales(request):
     if not request.is_ajax():
         raise Http404('No se puede acceder a esta url.')
-    images = FolderService.get_side_images(path='Laterales')
+    images = folder_service.get_side_images(path='Laterales')
     return HttpResponse(json.dumps(random.sample(images, 6), cls=DjangoJSONEncoder, ensure_ascii=False))
 
 
@@ -37,8 +38,8 @@ class GaleriaView(generic.ListView):
     template_name = 'web/galerias.html'
     
     def get_queryset(self):
-        photo_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Fotos")
-        video_galleries = FolderService.get_folder_names_from_path(folder="/archive/Galeria/Videos")
+        photo_galleries = folder_service.get_folder_names_from_path(path="/archive/Galeria/Fotos")
+        video_galleries = folder_service.get_folder_names_from_path(path="/archive/Galeria/Videos")
         return {
             'images': photo_galleries,
             'videos': video_galleries
@@ -54,7 +55,7 @@ class GaleriaCView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Fotos/Fotos Chamameseros/' + folder_letter
-        music_sheet_images = FolderService.get_files_from_folder(path=path)
+        music_sheet_images = folder_service.get_files_from_folder(path=path)
         obj['images'] = music_sheet_images[0:4]
         obj['lazyImages'] = music_sheet_images[4:]
         return obj
@@ -70,7 +71,7 @@ class GaleriaDetailView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Fotos/' + folder_letter
-        gallery_images = FolderService.get_files_from_folder(path=path)
+        gallery_images = folder_service.get_files_from_folder(path=path)
         obj['images'] = gallery_images[0:4]
         obj['lazyImages'] = gallery_images[4:]
         obj['name'] = folder_letter.replace('/', '')
@@ -86,7 +87,7 @@ class VideoView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Galeria/Videos/' + folder_letter.lower()
-        videos = FolderService.get_files_from_folder(path=path)
+        videos = folder_service.get_files_from_folder(path=path)
         obj['videos'] = videos
         return obj
 
@@ -154,7 +155,7 @@ class PartiturasCView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Material/Partituras/' + folder_letter.lower()
-        music_sheet_images = FolderService.get_files_from_folder(path=path)
+        music_sheet_images = folder_service.get_files_from_folder(path=path)
         obj['images'] = music_sheet_images
         return obj
 
@@ -168,7 +169,7 @@ class LetrasCView(generic.DetailView):
         if folder_letter is None:
             return obj
         path = '/archive/Material/Letras/' + folder_letter.lower()
-        lyrics = FolderService.get_files_from_folder(path=path)
+        lyrics = folder_service.get_files_from_folder(path=path)
         obj['lyrics'] = lyrics
         return obj
 
@@ -228,7 +229,7 @@ def partituras(request):
 
 def radio(request):
     path = "/radio"
-    contents = FolderService.get_radio_contents(path)
+    contents = folder_service.get_folders_with_their_contents(path)
     return render(request, 'web/radio.html', {"contents": contents})
 
 def revistas(request):
