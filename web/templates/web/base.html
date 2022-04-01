@@ -27,7 +27,7 @@
 			<div id="main">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
-					<div class="navbar-header">
+						<div class="navbar-header">
 						<div class="row">
 							<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
 								<span class="sr-only">Navegar</span>
@@ -64,15 +64,17 @@
 											</audio>
 										</figure>
 									</div>
-									</div>
 								</figure>
 							</div>
-							<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
-								<div class="form-group">
-									<input name="searchInput" type="text" class="form-control" placeholder="Buscar">
-								</div>
-								<button id="buscar" class="btn btn-primary pull-right">Buscar</button>
-							</form>
+							<div class="col-sm-4 col-md-5 col-sm-offset-2" id="banner">
+							</div>
+						</div>
+						<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
+							<div class="form-group">
+								<input name="searchInput" type="text" class="form-control" placeholder="Buscar">
+							</div>
+							<button id="buscar" class="btn btn-primary pull-right">Buscar</button>
+						</form>
 						</div>
 					</div>
 					<div class="collapse navbar-collapse" id="navbar-collapse">
@@ -155,9 +157,21 @@
 				}
 
 			$(document).ready(function(){
-				$.getScript("{% static 'web/js/laterales.js' %}", function(data, textStatus, jqxhr ) {
-					loadLaterales()
-					setInterval(loadLaterales, 5000);
+				// $.getScript("{% static 'web/js/laterales.js' %}", function(data, textStatus, jqxhr ) {
+				// 	loadLaterales()
+				// 	setInterval(loadLaterales, 5000);
+				// });
+				$.getScript("{% static 'web/js/banners.js' %}", function(){
+					var des =  "{% static "web/img/desarrollar.jpg" %}";
+					var incl =  "{% static "web/img/incluir.jpg" %}";
+					var moder =  "{% static "web/img/modernizar.jpg" %}";
+					var banners = [des, incl, moder];
+
+					var promises = banners.map(url => fetch(url).then(y => y.blob()));
+					Promise.all(promises).then(results => {
+						setInterval(loadBanners, 30000, results);
+					});
+	
 				});
 				$.getScript("{% static 'web/js/search.js' %}", function(){});
 				$.getScript("{% static 'web/js/facebook.js' %}", function(){});

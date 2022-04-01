@@ -133,7 +133,11 @@ p{
 	}
 }
 
-
+@media (max-width: 1023px) {
+	#banner {
+		display: none;
+	}
+}
 
 @media (min-width: 1024px){
 	.nav>li>a{
@@ -154,8 +158,11 @@ p{
 	.sadaic-col #sadaic img{
 		width: 420px;
 		height: 120px;
+	}
 
-
+	#banner {
+		display: block;
+		margin-top: 20px;
 	}
 
 	.logo-col #logo img{
