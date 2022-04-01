@@ -17,6 +17,7 @@ function loadBanners(banners) {
         newImg.heigth = 120;
 		newImg.className = 'banner-img';
         newImg.style.display = "none";
+        newImg.style.margin = '0px auto 0px auto';
         banner = document.getElementById('banner');
         banner.appendChild(newImg);
 		return newImg;
