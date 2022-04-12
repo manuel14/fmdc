@@ -38,9 +38,9 @@
 							<div class="logo-col col-sm-6 col-md-6 col-xs-3">
 								<a href="{% url 'index' %}" class="pull-left" id="logo"><img src="{% static 'web/img/logo.png' %}" alt=""></a>
 							</div>
-							<div class="sadaic-col col-sm-6 col-md-6 col-xs-3">
-								<a  href="http://www.sadaic.org.ar/" target="_blank" class="pull-right" id="sadaic"><img  src="{% static 'web/img/sadaic.jpg' %}" alt=""></a>
+							<div class="col-sm-3 col-md-3 col-sm-offset-2" id="banner">
 							</div>
+							
 						</div>
 						<div class="row">
 							<div class="col-sm-4 col-md-5" id="radio">
@@ -66,8 +66,7 @@
 									</div>
 								</figure>
 							</div>
-							<div class="col-sm-4 col-md-5 col-sm-offset-2" id="banner">
-							</div>
+							
 						</div>
 						<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
 							<div class="form-group">
@@ -165,11 +164,12 @@
 					var des =  "{% static "web/img/desarrollar.jpg" %}";
 					var incl =  "{% static "web/img/incluir.jpg" %}";
 					var moder =  "{% static "web/img/modernizar.jpg" %}";
-					var banners = [des, incl, moder];
+					var sadaic = "{% static "web/img/sadaic.jpg" %}";
+					var banners = [sadaic];
 
 					var promises = banners.map(url => fetch(url).then(y => y.blob()));
 					Promise.all(promises).then(results => {
-						setInterval(loadBanners, 30000, results);
+						setInterval(loadBanners, 15000, results);
 					});
 	
 				});
