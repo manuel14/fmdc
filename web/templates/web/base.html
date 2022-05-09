@@ -165,11 +165,11 @@
 					var incl =  "{% static "web/img/incluir.jpg" %}";
 					var moder =  "{% static "web/img/modernizar.jpg" %}";
 					var sadaic = "{% static "web/img/sadaic.jpg" %}";
-					var banners = [sadaic];
+					var banners = [des, incl, moder, sadaic];
 
 					var promises = banners.map(url => fetch(url).then(y => y.blob()));
 					Promise.all(promises).then(results => {
-						setInterval(loadBanners, 15000, results);
+						setInterval(loadBanners, 35000, results);
 					});
 	
 				});

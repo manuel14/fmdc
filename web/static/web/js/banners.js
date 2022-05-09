@@ -1,6 +1,5 @@
 function loadBanners(banners) {
 	let images = []
-    console.log(banners);
 
 	function clearImages() {
 		let imagesToDelete = document.getElementsByClassName('banner-img')
@@ -37,8 +36,9 @@ function loadBanners(banners) {
 
     images[0].style.display = 'block';
     setTimeout(hideImage, 5000, images[0], 1);
-    setTimeout(hideImage, 10000, images[1], 2);
-    setTimeout(hideImage, 15000, images[2])
+    setTimeout(hideImage, 15000, images[1], 2);
+    setTimeout(hideImage, 25000, images[2], 3)
+    setTimeout(hideImage, 35000, images[3])
 
 }
 
