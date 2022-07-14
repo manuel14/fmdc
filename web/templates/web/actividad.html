@@ -70,13 +70,18 @@
 						<div class="tracksContainer" id="songs">
 							{% for track in actividad.canciones.all  %}
 								<div class>
-									<h4 style="margin-bottom:10px" class="white-text">{{track.name|capfirst}}</h4>
+									<p style="margin-bottom:10px" class="white-text song-name">{{track.name|capfirst}}</p>
 									<audio
 										controls
+										controlsList="nodownload"
 										src="{{track.link.url}}">
 											Your browser does not support the
 											<code>audio</code> element.
 									</audio>
+									<a class="btn btn-primary song-download" role="button" href="{{track.link.url}}"
+									download>
+											Descargar
+							</a>
 								</div>
 							{% endfor %}
 						</div>		
