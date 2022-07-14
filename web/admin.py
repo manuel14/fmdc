@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.conf import settings
 import nested_admin
 
-from web.models import Actividad, ActividadImage, Image, ImageAlbum, Song, Biografia, \
+from web.models import Actividad, ActividadImage, ActividadFile, ActividadSong, Image, ImageAlbum, Song, Biografia, \
     Artista, EfemerideMes, Discoteca, Album, Video, PagoActividad, Revista, RevistaImage
 
 from .forms import AdminSongForm
@@ -90,6 +90,12 @@ class ActividadImageInline(nested_admin.NestedStackedInline):
     classes = ('grp-collapse grp-open',)
     inline_classes = ('grp-collapse grp-open',)
 
+class ActividadFileInline(nested_admin.NestedStackedInline):
+    model = ActividadFile
+    extra = 1
+    classes = ('grp-collapse grp-open',)
+    inline_classes = ('grp-collapse grp-open',)
+
 
 class DiscotecaAdmin(nested_admin.NestedModelAdmin):
     inlines = [
@@ -106,9 +112,23 @@ class ActividadAdmin(nested_admin.NestedModelAdmin):
     inlines = [
         VideoInline,
         ActividadImageInline,
+        ActividadFileInline
     ]
     exclude = ('text',)
     search_fields = ('name',)
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        song_names = ActividadSong.objects.values_list("name", flat=True)
+        for song in request.FILES.getlist('canciones_multiple'):
+            song_name = song.name.split(".")[0]
+            if song_name in song_names:
+                continue
+            song = ActividadSong.objects.create(
+                act=obj,
+                name=song_name,
+                link=song
+            )
 
 
 class PagoActividadAdmin(nested_admin.NestedModelAdmin):

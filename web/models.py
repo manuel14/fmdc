@@ -297,6 +297,37 @@ class ActividadImage(models.Model):
         verbose_name = 'Imagen'
         verbose_name_plural = 'Imagenes'
 
+class ActividadFile(models.Model):
+    """
+    Represents an event's image
+    """
+    name = models.CharField(max_length=100)
+    act = models.ForeignKey(Actividad, default=None, on_delete=models.CASCADE,
+                            null=True, blank=True)
+    link = models.FileField('Archivo', upload_to='files/', default='')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Archivo'
+        verbose_name_plural = 'Archivos'
+
+class ActividadSong(models.Model):
+    """
+    Represents an event's image
+    """
+    name = models.CharField(max_length=100)
+    act = models.ForeignKey(Actividad, default=None, on_delete=models.CASCADE,
+                            null=True, blank=True, related_name="canciones")
+    link = models.FileField('CancionActividad', upload_to='files/', default='')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Cancion activdad'
+        verbose_name_plural = 'Canciones de actividad'
 
 class PagoActividad(Actividad):
     tipo = Actividad.PAGO_ACTIVIDAD
