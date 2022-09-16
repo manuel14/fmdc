@@ -15,9 +15,12 @@
         object-fit: cover;
         width: 100%;
     }
+    
+    .thumbnail{
+        height: 45vh;
+    }
 
     h2, h3{
-        font-size: 1rem;
         text-align: center;
     }
 }
