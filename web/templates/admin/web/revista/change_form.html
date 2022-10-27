@@ -7,4 +7,12 @@
   <h2>Subir imagenes</h2>
   <input name="images_multiple" type="file" multiple />
 </fieldset>
+{% if adminform.form.instance.imagenes_revista.all %}
+<h4>Imagenes</h4>
+<ul>
+  {% for img in adminform.form.instance.imagenes_revista.all %}
+    <li>{{img.link.url}}</li>
+  {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}
