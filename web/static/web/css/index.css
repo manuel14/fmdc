@@ -1,5 +1,5 @@
 .jumbotron{
-	border-bottom: 1px rgb(218,157,56) solid;
+	margin-bottom: 0px;
 }
 
 #info{
@@ -72,5 +72,12 @@
 @media(max-width: 992px){
 	#info {
 		font-size: 2vmax;
+	}
+}
+
+@media(max-width: 425px) {
+	.jumbotron {
+		padding-bottom: 0px;
+		padding-top: 0px;
 	}
 }
