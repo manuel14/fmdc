@@ -1,0 +1,12 @@
+
+
+@media(max-width: 767px) {
+    .editorial-img {
+        width: 43vmax;
+        height: 20vmax;
+    }
+
+    iframe {
+        width: 100%;
+    }
+}

@@ -10,6 +10,32 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-md-8 col-md-offset-2" id="radio">
+					<figure class="radio-container">
+						<div id="logo-radio-container">
+							<img id="logo-radio" src="{% static 'web/img/logo-radio-trans.png' %}" />
+						</div>
+						<a style="font-size:16px;" class="white-text" href="#" onclick="openRadio()">
+							<button id="openRadio" class="btn btn-primary">Ir a la radio</button>
+						</a>
+						<div id="radioPlayer"
+							style="display:none; width: 100%; height: 100%; justify-content: center; align-items: center; background: #310900">
+							<figure>
+								<div style="text-align: center;">
+									<img style="width: 30vmax; height: 30vmax; " id="logo-radio"
+										src="{% static 'web/img/logo-radio.jpg' %}" />
+								</div>
+								<audio style="margin-top: 20px;" controls src="https://stream.zenolive.com/84y7b87p4gruv.aac">
+									Your browser does not support the
+									<code>audio</code> element.
+								</audio>
+							</figure>
+						</div>
+					</figure>
+				</div>
+			
+			</div>
 			<div class="row vertical-align">
 				<div class="col-xs-12 col-sm-4 text-center white-text" id="jumbBrand">
 					<h2 style="margin:0px;"><strong>MUSEO VIRTUAL DEL CHAMAME</strong></h1><br>
@@ -17,6 +43,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="row" id="info">
 		<div class="col-sm-6 white-text">
 			<p>Se abre esta p&aacute;gina con el deseo de llevar a quienes requieran, no una pila almacenada de nombres, fechas, canciones,etc. sino, eso mismo, pero amorosamente tra&iacute;da de los lugares m&aacute;s sensibles del alma</p>

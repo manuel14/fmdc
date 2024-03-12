@@ -39,6 +39,11 @@
 	font-size: 24px;
 }
 
+#logo-radio {
+	width: 10vmax;
+	height: 20vh;
+}
+
 @media(min-width: 768px){
 	.jumbotron{
 		padding: 10px 50px;

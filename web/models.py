@@ -12,6 +12,8 @@ from tinymce import models as tinymce_models
 def album_song_path(instance, filename):
     return f'archive/Discografias/{instance.album.artista.name}/{instance.album.name}/{filename}'
 
+def get_tapa_editorial_upload_path(instance, filename):
+    return f"editoriales/{instance.title}/{filename}"
 
 class Artista(models.Model):
     """
@@ -363,3 +365,20 @@ class RevistaImage(models.Model):
     class Meta:
         verbose_name = 'Imagen'
         verbose_name_plural = 'Imagenes'
+
+class Editorial(models.Model):
+    """
+    Represents an editorial object
+    """
+    title = models.CharField(max_length=200)
+    tapa = models.ImageField('Tapa editorial', upload_to=get_tapa_editorial_upload_path)
+    link = models.FileField('Editorial', upload_to=get_tapa_editorial_upload_path,
+                            validators=[FileExtensionValidator(
+                                allowed_extensions=['pdf'])],)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Editorial'
+        verbose_name_plural = 'Editoriales'

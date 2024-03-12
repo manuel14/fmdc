@@ -1,0 +1,11 @@
+.editoriales-img {
+    width: 20vmax;
+    height: 15vmax;
+}
+
+@media(max-width: 767px) {
+    .editoriales-img {
+        width: 34vmax;
+    }
+}
+

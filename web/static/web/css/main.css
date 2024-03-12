@@ -68,6 +68,42 @@ p{
 	border-bottom: 1px rgb(218,157,56) solid;
 }
 
+.my-navbar {
+	width: 100%;
+	border-bottom: 1px rgb(218, 157, 56) solid;
+	
+}
+
+
+.my-navbar > ul > li {
+	margin-left: 1.5px;
+	color: white;
+	display: inline-block;
+	padding: 10px;
+	vertical-align: top;
+	font-size: 18px;
+	
+}
+
+li > a{
+	color:white
+}
+
+@media (max-width: 768px) {
+	.my-navbar>ul>li {
+		font-size: 10px;
+	 }
+}
+
+@media(max-width: 767px) {
+	.my-navbar>ul>li {
+			display: block;
+			padding: 10px;
+			margin: 0;
+	
+		}
+}
+
 @media (min-width: 320px){
 	.sadaic-col #sadaic img{
 		height:25px; 
@@ -87,7 +123,6 @@ p{
 		width: 100%;
 		margin: 10px;
 	}
-
 }
 
 @media (min-width: 768px){
@@ -112,15 +147,14 @@ p{
 	.nav{
 		width: 100%;
 	}
-	.nav>li>a{
-		font-size: 12px;
-		padding:7px 0px;
-
-
-	}
+	
 	.seven-cols .seven{
-		width: 10%;
-		*width: 10%;
+		width: 8.2%;
+	}
+
+		
+	.my-navbar>ul>li {
+		padding-top: 10px;
 	}
 	
 	.institucional{
@@ -141,8 +175,9 @@ p{
 
 @media (min-width: 1024px){
 	.nav>li>a{
-		font-size: 14px;
+		font-size: 18px;
 	}
+
 
 	#buscarArt input{
 		width: 125%;
@@ -161,7 +196,9 @@ p{
 	}
 
 	#banner {
-		display: block;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
 		margin-top: 20px;
 	}
 

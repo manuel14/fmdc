@@ -15,6 +15,7 @@ from .models import (
     Artista,
     Biografia,
     Discoteca,
+    Editorial,
     Efemeride,
     EfemerideMes,
     Revista
@@ -245,6 +246,24 @@ def revista(request, pk):
         'web/revista.html',
         {'revista': revista, 'imagenes': revista_imagenes, 'total': len(revista_imagenes)}
     )
+
+def editoriales(request):
+    editoriales_list = Editorial.objects.all()
+    return render(
+        request,
+        "web/editoriales.html",
+        {'editoriales': editoriales_list}
+    )
+
+def editorial(request, pk=None):
+    if pk is None:
+        return render(request, 'web/404.html')
+    editorial = Editorial.objects.get(pk=pk)
+    return render(
+        request,
+        "web/editorial.html",
+        {'editorial': editorial }
+    ) 
 
 def error404(request, exception=None):
     return render(request, 'web/404.html')

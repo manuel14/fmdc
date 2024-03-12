@@ -5,7 +5,7 @@ from django.conf import settings
 import nested_admin
 
 from web.models import Actividad, ActividadImage, ActividadFile, ActividadSong, Image, ImageAlbum, Song, Biografia, \
-    Artista, EfemerideMes, Discoteca, Album, Video, PagoActividad, Revista, RevistaImage
+    Artista, EfemerideMes, Discoteca, Album, Video, PagoActividad, Revista, RevistaImage, Editorial
 
 from .forms import AdminSongForm
 from .helpers import create_folder, copy_tmp_file_into_destination
@@ -154,8 +154,13 @@ class RevistaAdmin(nested_admin.NestedModelAdmin):
             )
             imagen.save()
 
+class EditorialAdmin(admin.ModelAdmin):
+    exclude = ()
+    ordering = ('title',)
+
 
 
 admin.site.register(Actividad, ActividadAdmin)
 admin.site.register(PagoActividad, PagoActividadAdmin)
 admin.site.register(Revista, RevistaAdmin)
+admin.site.register(Editorial, EditorialAdmin)

@@ -23,6 +23,50 @@
 		<!--[if lt IE 8]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
+		<div class="my-navbar">
+			<ul class="seven-cols">
+				<li class="{% block activeDisc %}{% endblock activeDisc %} seven text-center">
+					<a href="{% url 'discotecas' %}">Discoteca</a>
+				</li>
+				<li class="{% block activeBen %}{% endblock activeBen %} seven text-center">
+					<a href="{% url 'benefactores' %}">Benefactores</a>
+				</li>
+				<li class="{% block activeGal %}{% endblock activeGal %} seven text-center">
+					<a href="{% url 'galerias' %}">Galeria</a>
+				</li>
+				<li class="{% block activeMat %}{% endblock activeMat %} seven text-center">
+					<a href="{% url 'material' %}">Material</a>
+				</li>
+				<li class="{% block activeAct %}{% endblock activeAct %} seven text-center">
+					<a href="{% url 'actividades' %}">Actividades</a>
+				</li>
+				<li class="{% block activeArt %}{% endblock activeArt %} seven text-center">
+					<a href="{% url 'biografias' %}">Artistas</a>
+				</li>
+				<li class="{% block activeEfe %}{% endblock activeEfe %} seven text-center">
+					<a href="{% url 'efemerides' %}">Efem&eacute;rides</a>
+				</li>
+				<li class="{% block activeInst %}{% endblock activeInst %} dropdown seven text-center">
+					<a href="#" class="institucional white-text dropdown-toggle" data-toggle="dropdown" role="button"
+						aria-haspopup="true" aria-expanded="false">Institucional <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="{% url 'consejoAdm' %}">Consejo de Administración</a></li>
+						<li><a href="{% url 'consejoCon' %}">Consejo Consultivo</a></li>
+						<li><a href="{% url 'miembros' %}">Miembros Correspondientes</a></li>
+						<li><a href="{% url 'objetivos' %}">Objetivos</a></li>
+					</ul>
+				</li>
+				<li class="{% block activeRadio %}{% endblock activeRadio %} seven text-center">
+					<a href="{% url 'radio' %}">Contenidos radio chamamé</a>
+				</li>
+				<li class="{% block activeRevistas %}{% endblock activeRevistas %} seven text-center">
+					<a href="{% url 'revistas' %}">Revistas Ivera</a>
+				</li>
+				<li class="{% block activeEditoriales %}{% endblock activeEditoriales %} seven text-center">
+					<a href="{% url 'editoriales' %}">Editoriales</a>
+				</li>
+			</ul>
+		</div>
 		<div class="container">
 			<div id="main">
 				<nav class="navbar navbar-default">
@@ -35,87 +79,28 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<div class="logo-col col-sm-6 col-md-6 col-xs-3">
+							<div id="banner">
+							</div>
+							<div class="logo-col col-md-8 col-md-offset-4">
 								<a href="{% url 'index' %}" class="pull-left" id="logo"><img src="{% static 'web/img/logo.png' %}" alt=""></a>
 							</div>
-							<div class="col-sm-3 col-md-3 col-sm-offset-2" id="banner">
-							</div>
+							<form class="col-sm-4 col-md-8 col-md-offset-4 hidden-xs searchForm" id="buscarArt" data-source="busqueda">
+									<div class="col-md-4">
+										<input class="form-control" name="searchInput" type="text" placeholder="Buscar">
+									</div>
+									<div class="col-md-6 pull-right">
+										<button id="buscar" class="btn btn-primary">Buscar</button>
+									</div>
+							
+							</form>
+							
 							
 						</div>
-						<div class="row">
-							<div class="col-sm-4 col-md-5" id="radio">
-								<figure class="radio-container">
-									<div id="logo-radio-container">
-										<img id="logo-radio" src="{% static 'web/img/logo-radio.jpg' %}"/>
-									</div>
-									<a style="font-size:16px;" class="white-text" href="#" onclick="openRadio()">
-										<button id="openRadio" class="btn btn-primary">Ir a la radio</button>
-									</a>
-									<div id="radioPlayer" style="display:none; width: 100%; height: 100%; justify-content: center; align-items: center; background: #310900">
-										<figure>
-											<div style="text-align: center;">
-												<img style="width: 30vmax; height: 30vmax; " id="logo-radio" src="{% static 'web/img/logo-radio.jpg' %}"/>
-											</div>
-											<audio style="margin-top: 20px;"
-											controls
-											src="https://stream.zenolive.com/84y7b87p4gruv.aac">
-												Your browser does not support the
-												<code>audio</code> element.
-											</audio>
-										</figure>
-									</div>
-								</figure>
-							</div>
-							
-						</div>
-						<form class="col-sm-4 col-md-5 form-inline pull-right hidden-xs searchForm" id="buscarArt" data-source="busqueda">
-							<div class="form-group">
-								<input name="searchInput" type="text" class="form-control" placeholder="Buscar">
-							</div>
-							<button id="buscar" class="btn btn-primary pull-right">Buscar</button>
-						</form>
+
+						
 						</div>
 					</div>
-					<div class="collapse navbar-collapse" id="navbar-collapse">
-						<ul class="nav navbar-nav seven-cols">						
-							<li class="{% block activeDisc %}{% endblock activeDisc %} seven text-center">
-								<a href="{% url 'discotecas' %}">Discoteca</a>
-							</li>
-							<li class="{% block activeBen %}{% endblock activeBen %} seven text-center">
-								<a href="{% url 'benefactores' %}">Benefactores</a>
-							</li>
-							<li class="{% block activeGal %}{% endblock activeGal %} seven text-center">
-								<a href="{% url 'galerias' %}">Galeria</a>
-							</li>
-							<li class="{% block activeMat %}{% endblock activeMat %} seven text-center">
-								<a href="{% url 'material' %}">Material</a>
-							</li>
-							<li class="{% block activeAct %}{% endblock activeAct %} seven text-center">
-								<a href="{% url 'actividades' %}">Actividades</a>
-							</li>
-							<li class="{% block activeArt %}{% endblock activeArt %} seven text-center">
-								<a href="{% url 'biografias' %}">Artistas</a>
-							</li>
-							<li class="{% block activeEfe %}{% endblock activeEfe %} seven text-center">
-								<a href="{% url 'efemerides' %}">Efem&eacute;rides</a>
-							</li>
-							<li class="{% block activeInst %}{% endblock activeInst %} dropdown seven text-center">
-								<a href="#" class="institucional white-text dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Institucional <span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li><a href="{% url 'consejoAdm' %}">Consejo de Administración</a></li>
-										<li><a href="{% url 'consejoCon' %}">Consejo Consultivo</a></li>
-										<li><a href="{% url 'miembros' %}">Miembros Correspondientes</a></li>
-										<li><a href="{% url 'objetivos' %}">Objetivos</a></li>
-									</ul>
-							</li>
-							<li class="{% block activeRadio %}{% endblock activeRadio %} seven text-center">
-								<a href="{% url 'radio' %}">Contenidos radio chamamé</a>
-							</li>
-							<li class="{% block activeRevistas %}{% endblock activeRevistas %} seven text-center">
-								<a href="{% url 'revistas' %}">Revistas Ivera</a>
-							</li>
-						</ul>
-					</div>
+					
 				</nav>
 				{% block content %}{% endblock content %}
 			</div>
