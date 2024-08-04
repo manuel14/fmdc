@@ -43,6 +43,7 @@ class Biografia(models.Model):
 
     def save(self, *args, **kwargs):
         self.text = self.text.replace("color:", "")
+        self.text = re.sub(r"background:\s*[^;]+;", "", self.text, flags=re.IGNORECASE)
         super(Biografia, self).save(*args, **kwargs)
 
     class Meta:
