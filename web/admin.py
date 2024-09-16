@@ -158,6 +158,16 @@ class EditorialAdmin(admin.ModelAdmin):
     exclude = ()
     ordering = ('title',)
 
+    def save_model(self, request, obj, form, change):
+        obj.save()
+        obj.archivos_editorial.all().delete()
+        for arch in request.FILES.getlist('editorial_canciones_multiple'):
+            file_name = arch.name.split(".")[0]
+            EditorialFile.objects.create(
+                editorial=obj,
+                name=file_name,
+                link=arch
+            )
 
 
 admin.site.register(Actividad, ActividadAdmin)

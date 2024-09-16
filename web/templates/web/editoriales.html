@@ -13,9 +13,11 @@
     {% for editorial in editoriales%}
         <div class="col-sm-12 col-md-4">
             <a href="{% url 'editorial' editorial.id %}">
-            <h2 class="white-text text-center">{{editorial.title}}</h2>
+              <h2 class="white-text text-center">{{editorial.title}}</h2>
             </a>
-            <img class="editoriales-img" src="{{editorial.tapa.url}}" />
+            <a href="{% url 'editorial' editorial.id %}">
+              <img class="editoriales-img" src="{{editorial.tapa.url}}" />
+            </a>
         </div>
     {% empty %}
     <h2>No hay Editoriales cargadas</h2>

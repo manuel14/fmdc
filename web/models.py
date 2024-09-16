@@ -377,9 +377,26 @@ class Editorial(models.Model):
                             validators=[FileExtensionValidator(
                                 allowed_extensions=['pdf'])],)
 
+
     def __str__(self):
         return self.title
 
     class Meta:
         verbose_name = 'Editorial'
         verbose_name_plural = 'Editoriales'
+
+class EditorialFile(models.Model):
+    """
+    Represents an event's image
+    """
+    name = models.CharField(max_length=100)
+    editorial = models.ForeignKey(Editorial, default=None, on_delete=models.CASCADE,
+                            null=True, blank=True, related_name="archivos_editorial")
+    link = models.FileField('ArchivoEditorial', upload_to='files/', default='')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Archivo Editorial'
+        verbose_name_plural = 'Archivos Editorial'

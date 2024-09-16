@@ -174,6 +174,9 @@ class LetrasCView(generic.DetailView):
         obj['lyrics'] = lyrics
         return obj
 
+class LetrasView(generic.TemplateView):
+    template_name = 'web/letras.html'
+
 
 class ActividadView(generic.ListView):
     template_name = 'web/actividadesLista.html'

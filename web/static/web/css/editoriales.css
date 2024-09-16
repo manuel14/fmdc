@@ -1,6 +1,6 @@
 .editoriales-img {
     width: 20vmax;
-    height: 15vmax;
+    height: 10em;
 }
 
 @media(max-width: 767px) {

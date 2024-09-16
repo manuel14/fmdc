@@ -1,0 +1,30 @@
+{% extends "admin/change_form.html" %}
+{% block content %}
+  <h1>
+  {{ original }}
+  </h1>
+  <!-- Show existing saved files -->
+  {% if original.archivos_editorial %}
+    <div class="existing-files">
+      <h2>Canciones Guardados</h2>
+      <ul>
+        {% for archivo in original.archivos_editorial.all %}
+          <li>
+            <a href="{{ archivo.link.url }}">{{ archivo.link.name }}</a> <!-- Assuming archivo has a file field -->
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <br>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}
+{% block inline_field_sets %}
+{% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+{% endfor %}
+<fieldset class="module">
+  <h2>Subir canciones</h2>
+  <input name="editorial_canciones_multiple" type="file" multiple />
+</fieldset>
+{% endblock %}

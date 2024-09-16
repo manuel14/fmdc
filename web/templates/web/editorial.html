@@ -9,17 +9,34 @@
 
 {% block content %}
 <div class="row">
-    <h1 class="col-md-offset-2 white-text text-center">{{editorial.title}}</h1>
-    <div class="row">
-    <img  class="col-md-9 col-md-offset-3 editorial-img" src="{{editorial.tapa.url}}" />
-    </div>
+    <div class="editorial-container col-md-10 col-md-offset-2">
+      <h1 class="white-text text-center">{{editorial.title}}</h1>
+      <div class="row editorial-tapa">
+        <img class="editorial-img" src="{{editorial.tapa.url}}" />
+      </div>
+
+      <br/>
+      <div class="row editorial-file-container">
+        <iframe class="editorial-pdf"src="{{editorial.link.url}}">
+        </iframe>
+      </div>
+        {% if editorial.archivos_editorial.all %}
+					<div class="editorial-files-container">
+							{% for track in editorial.archivos_editorial.all  %}
+								<div class="editorial-track">
+									<p style="margin-bottom:10px" class="white-text song-name text-center">{{track.name|capfirst}}</p>
+									<audio
+										controls
+										controlsList="nodownload"
+										src="{{track.link.url}}">
+											Your browser does not support the
+											<code>audio</code> element.
+									</audio>
+								</div>
+							{% endfor %}
+					</div>
+				{% endif %}
     <div>
-    <br/>
-    <div style="margin-bottom: 10px;" class="row">
-    <iframe class="col-md-9 col-md-offset-3 col-sm-12 editorial-pdf" width="100%" height="500px" src="{{editorial.link.url}}">
-    
-    </iframe>
     </div>
 </div>
-
 {% endblock content %}
