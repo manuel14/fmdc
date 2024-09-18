@@ -12,3 +12,22 @@ figure > a > img {
 figcaption {
     font-size: 20px;
 }
+
+.pagination {
+    display: flex;
+    width: 100%;
+    font-size: 2em;
+    justify-content: center;
+}
+
+.page_link {
+    color: white;
+}
+
+.first_page {
+    margin-right: 5px;
+}
+
+.next_page {
+    margin-right: 5px;
+}

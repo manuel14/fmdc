@@ -8,6 +8,7 @@ from django.views import generic
 from datetime import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q, F
+from django.core.paginator import Paginator
 
 
 from .models import (
@@ -23,6 +24,7 @@ from .models import (
 from web.folder_service import FolderService
 
 folder_service = FolderService()
+
 
 def index(request):
     return render(request, 'web/index.html')
@@ -236,19 +238,30 @@ def radio(request):
     contents = folder_service.get_folders_with_their_contents(path)
     return render(request, 'web/radio.html', {"contents": contents})
 
+
 def revistas(request):
-    revistas = Revista.objects.exclude(imagenes_revista__isnull=True).order_by('fecha')
-    context = {'revistas': revistas}
+    revistas_objs = Revista.objects.exclude(
+        imagenes_revista__isnull=True).order_by('fecha')
+
+    paginator = Paginator(revistas_objs, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {'revistas': page_obj}
+
     return render(request, 'web/revistas.html', context)
+
 
 def revista(request, pk):
     revista = Revista.objects.get(pk=pk)
-    revista_imagenes = sorted(revista.imagenes_revista.all(), key=lambda r: r.link.name)
+    revista_imagenes = sorted(
+        revista.imagenes_revista.all(), key=lambda r: r.link.name)
     return render(
         request,
         'web/revista.html',
-        {'revista': revista, 'imagenes': revista_imagenes, 'total': len(revista_imagenes)}
+        {'revista': revista, 'imagenes': revista_imagenes,
+            'total': len(revista_imagenes)}
     )
+
 
 def editoriales(request):
     editoriales_list = Editorial.objects.all()

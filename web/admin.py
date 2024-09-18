@@ -1,14 +1,10 @@
-import os
-
 from django.contrib import admin
-from django.conf import settings
 import nested_admin
 
 from web.models import Actividad, ActividadImage, ActividadFile, ActividadSong, Image, ImageAlbum, Song, Biografia, \
-    Artista, EfemerideMes, Discoteca, Album, Video, PagoActividad, Revista, RevistaImage, Editorial
+    Artista, EfemerideMes, Discoteca, Album, Video, PagoActividad, Revista, RevistaImage, Editorial, EditorialFile
 
 from .forms import AdminSongForm
-from .helpers import create_folder, copy_tmp_file_into_destination
 
 
 def album_song_path(album):

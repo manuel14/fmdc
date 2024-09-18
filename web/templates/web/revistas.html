@@ -2,28 +2,47 @@
 {% load static %}
 
 {% block headPlus %}
-	<link rel="stylesheet" href="{% static 'web/css/revistas.css' %}">
+<link rel="stylesheet" href="{% static 'web/css/revistas.css' %}">
 {% endblock headPlus %}
 
 {% block scriptPlus %}
-	<script src="{% static 'web/js/loading.js' %}"></script>
+<script src="{% static 'web/js/loading.js' %}"></script>
 {% endblock scriptPlus %}
 
 {% block activeRevistas %}active{% endblock activeRevistas %}
 
 {% block content %}
-	<div class="row img" style="padding:0px 15px;">
-        <div id='mi_galeria'>
-            {% for revista in revistas %}
-                <div style='margin-top:15px;' class='col-md-12' id="{{revista.pk}}" itemscope itemtype="http://schema.org/ImageGallery">
-                    <figure>
-                        <a href='/revista/{{revista.pk}}' itemprop="contentUrl" data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
-                            <img data-pk="{{revista.pk}}" src="{{revista.tapa.url}}" alt="{{revista.nombre}}" itemprop="thumbnail">
-                        </a>
-                        <figcaption class="white-text text-center" itemprop="caption description"><strong>{{revista.nombre}}</strong></figcaption>
-                    </figure>
-                </div>
-            {% endfor %}
-	    </div>
+<div class="row img" style="padding:0px 15px;">
+    <div id='mi_galeria'>
+        {% for revista in revistas %}
+        <div style='margin-top:15px;' class='col-md-12' id="{{revista.pk}}" itemscope
+            itemtype="http://schema.org/ImageGallery">
+            <figure>
+                <a href='/revista/{{revista.pk}}' itemprop="contentUrl"
+                    data-size="{{revista.tapa.width}}x{{revista.tapa.height}}">
+                    <img data-pk="{{revista.pk}}" src="{{revista.tapa.url}}" alt="{{revista.nombre}}"
+                        itemprop="thumbnail">
+                </a>
+                <figcaption class="white-text text-center" itemprop="caption description">
+                    <strong>{{revista.nombre}}</strong>
+                </figcaption>
+            </figure>
+        </div>
+        {% endfor %}
+        <div class="pagination white-text text-center">
+            <span class="step-links">
+                {% if revistas.has_previous %}
+                <a class="page_link first_page" href="?page=1">Primera</a>
+                <a class="page_link" href="?page={{ revistas.previous_page_number }}">Anterior</a>
+                {% endif %}
+
+                <br />
+                {% if revistas.has_next %}
+                <a class="page_link next_page" href="?page={{ revistas.next_page_number }}">Siguiente</a>
+                <a class="page_link" href="?page={{ revistas.paginator.num_pages }}">Última</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
+</div>
 {% endblock content %}
