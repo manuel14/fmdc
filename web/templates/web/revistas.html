@@ -38,7 +38,7 @@
 
                 {% if revistas.has_next %}
                 <a class="page_link next_page" href="?page={{ revistas.next_page_number }}">Siguiente</a>
-                <a class="page_link" href="?page={{ revistas.paginator.num_pages }}">Última</a>
+                <a class="page_link last_page" href="?page={{ revistas.paginator.num_pages }}">Última</a>
                 {% endif %}
             </span>
         </div>

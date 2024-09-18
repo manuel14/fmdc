@@ -33,9 +33,9 @@ figcaption {
 }
 
 .first_page {
-    margin-right: 5px;
+    margin-right: 15px;
 }
 
-.next_page {
-    margin-right: 5px;
+.last_page {
+    margin-left: 5px;
 }
