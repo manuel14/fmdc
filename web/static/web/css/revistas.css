@@ -20,6 +20,14 @@ figcaption {
     justify-content: center;
 }
 
+.step-links {
+    margin-top: 10px;
+}
+
+.previous_links {
+    margin-right: 10px;
+}
+
 .page_link {
     color: white;
 }
