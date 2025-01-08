@@ -1,6 +1,7 @@
 @media(max-width: 768px){
 	.thumbnail img{
         height: 150vh;
+        object-fit: cover;
     }
     h2 h3{
         font-size: 2rem;
