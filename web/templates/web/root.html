@@ -1,0 +1,29 @@
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>{% block title %}Fundaci&oacute;n memoria del Chamam&eacute;{% endblock title %}</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="museo, virtual, chamame, corrientes, fundaci&oacute;n, memoria">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/png" href="{% static 'web/favicon.ico' %}">
+		<link rel="stylesheet" href="{% static 'web/css/normalize.min.css' %}">
+		<link rel="stylesheet" href="{% static 'web/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'web/css/bootstrap.min.css.map' %}">
+		<link rel="stylesheet" href="{% static 'web/css/bootstrap-theme.min.css' %}">
+		<link rel="stylesheet" href="{% static 'web/css/bootstrap-theme.min.css.map' %}">
+		<link rel="stylesheet" href="{% static 'web/css/main.css' %}">
+		{% block headPlus %}{% endblock headPlus %}
+	</head>
+	<body>
+        {% block content %}{% endblock content %}
+        <div id='footer'>
+
+
+        </div>
+		{% block scriptPlus %}{% endblock scriptPlus %}
+	</body>
+</html>

@@ -23,53 +23,7 @@
 		<!--[if lt IE 8]>
 			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 		<![endif]-->
-		<div class="my-navbar">
-			<ul class="seven-cols">
-				<li class="{% block activeDisc %}{% endblock activeDisc %} seven text-center">
-					<a href="{% url 'discotecas' %}">Discoteca</a>
-				</li>
-				<li class="{% block activeBen %}{% endblock activeBen %} seven text-center">
-					<a href="{% url 'benefactores' %}">Benefactores</a>
-				</li>
-				<li class="{% block activeGal %}{% endblock activeGal %} seven text-center">
-					<a href="{% url 'galerias' %}">Galeria</a>
-				</li>
-      <li class="{% block activeLetras %}{% endblock activeLetras %} seven text-center">
-					<a href="{% url 'letras' %}">Letras</a>
-				</li>
-				<li class="{% block activeMat %}{% endblock activeMat %} seven text-center">
-					<a href="{% url 'material' %}">Material</a>
-				</li>
-				<li class="{% block activeAct %}{% endblock activeAct %} seven text-center">
-					<a href="{% url 'actividades' %}">Actividades</a>
-				</li>
-				<li class="{% block activeArt %}{% endblock activeArt %} seven text-center">
-					<a href="{% url 'biografias' %}">Artistas</a>
-				</li>
-				<li class="{% block activeEfe %}{% endblock activeEfe %} seven text-center">
-					<a href="{% url 'efemerides' %}">Efem&eacute;rides</a>
-				</li>
-				<li class="{% block activeInst %}{% endblock activeInst %} dropdown seven text-center">
-					<a href="#" class="institucional white-text dropdown-toggle" data-toggle="dropdown" role="button"
-						aria-haspopup="true" aria-expanded="false">Institucional <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="{% url 'consejoAdm' %}">Consejo de Administración</a></li>
-						<li><a href="{% url 'consejoCon' %}">Consejo Consultivo</a></li>
-						<li><a href="{% url 'miembros' %}">Miembros Correspondientes</a></li>
-						<li><a href="{% url 'objetivos' %}">Objetivos</a></li>
-					</ul>
-				</li>
-				<li class="{% block activeRadio %}{% endblock activeRadio %} seven text-center">
-					<a href="{% url 'radio' %}">Contenidos radio chamamé</a>
-				</li>
-				<li class="{% block activeRevistas %}{% endblock activeRevistas %} seven text-center">
-					<a href="{% url 'revistas' %}">Revistas Ivera</a>
-				</li>
-				<li class="{% block activeEditoriales %}{% endblock activeEditoriales %} seven text-center">
-					<a href="{% url 'editoriales' %}">Editoriales</a>
-				</li>
-			</ul>
-		</div>
+		{% include "web/header.html" %}
 		<div class="container">
 			<div id="main">
 				<nav class="navbar navbar-default">
@@ -94,16 +48,16 @@
 									<div class="col-md-6 pull-right">
 										<button id="buscar" class="btn btn-primary">Buscar</button>
 									</div>
-							
+
 							</form>
-							
-							
+
+
 						</div>
 
-						
+
 						</div>
 					</div>
-					
+
 				</nav>
         {% block content %}{% endblock content %}
 			</div>
@@ -159,7 +113,7 @@
 					Promise.all(promises).then(results => {
 						setInterval(loadBanners, 35000, results);
 					});
-	
+
 				});
 				$.getScript("{% static 'web/js/search.js' %}", function(){});
 				$.getScript("{% static 'web/js/facebook.js' %}", function(){});

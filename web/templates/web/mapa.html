@@ -1,0 +1,240 @@
+{% extends "web/root.html" %}
+{% load static %}
+
+{% block activeMapa %}active{% endblock activeMapa %}
+
+{% block headPlus %}
+	<link rel="stylesheet" href="{% static 'web/css/radio.css' %}">
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <link rel="stylesheet" href="{% static 'web/css/mapa.css' %}">
+{% endblock headPlus %}
+
+{% block scriptPlus %}
+	<script src="{% static 'web/js/collapsible.js' %}"></script>
+{#    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&callback=initMap" async defer></script>#}
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <script>
+
+        const videoUrls = JSON.parse('{{ videoUrls|escapejs }}');
+
+        // modal handling
+        const modal = document.getElementById('videoModal');
+        const videoContainer = document.getElementById('videoContainer');
+        const closeModal = document.getElementById('closeModal');
+
+        // Close modal when clicking the X
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+            videoContainer.innerHTML = ''; // Clear video container
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                videoContainer.innerHTML = ''; // Clear video container
+            }
+        }
+
+        const tooltipOffsets = {
+                "corrientes": [0, 20],
+                "san cosme": [0, 20],
+                "empedrado": [0, 40],
+                "goya": [0, -30],
+                "monte caseros": [0, 30],
+                "curuzu cuatia": [0, 25],
+                "paso de los libres": [0, 50],
+                "santo tome": [0, 20],
+                "mercedes": [0, 40],
+                "beron de astrada": [0, 30],
+                "san luis del palmar": [0, 10],
+                "itati": [0, 0],
+                "mburucuya": [0, 30],
+                "saladas": [0, 30],
+                "ituzaingo": [0, -30],
+                "santo tome": [0, 85],
+                "san martin": [40, 90],
+                "general alvear": [45, 80],
+                "bella vista": [0, 30],
+                "san roque": [0, 0],
+                "sauce": [0, 45],
+                "san miguel": [0, 50],
+            };
+
+
+        // Initialize the map
+        const map = L.map('map');
+
+        // Add OpenStreetMap tiles
+        //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //maxZoom: 20,
+            //attribution: '© OpenStreetMap contributors'
+        //}).addTo(map);
+
+        // Fetch and load the GeoJSON data
+        fetch("{% static 'geo/modificado.geojson' %}")
+            .then(response => response.json())
+            .then(data => {
+                // Add GeoJSON to the map
+                const geoJsonLayer = L.geoJSON(data, {
+                    style: {
+                        color: '#2c3e50',
+                        weight: 1,
+                        fillColor: '#FFEFB6',
+                        fillOpacity: 1,
+                        weight: 1
+                    },
+                    pointToLayer: function (feature, latlng) {
+                        // Use your custom marker for points, but without the department name
+                        return L.marker(latlng, {
+                            icon: L.divIcon({
+                                className: 'department-label',
+                                html: `
+                                    <div>
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                                                <g clip-path="url(#clip0_298_16240)">
+                                                    <path d="M19.8534 9.73624C19.8534 16.3526 11.4182 22.0238 11.4182 22.0238C11.4182 22.0238 2.98291 16.3526 2.98291 9.73624C2.98291 7.48011 3.87162 5.31639 5.45354 3.72106C7.03546 2.12574 9.18101 1.22949 11.4182 1.22949C13.6554 1.22949 15.8009 2.12574 17.3828 3.72106C18.9647 5.31639 19.8534 7.48011 19.8534 9.73624Z" stroke="#071739" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M11.4182 12.5716C12.9711 12.5716 14.23 11.302 14.23 9.73597C14.23 8.16992 12.9711 6.90039 11.4182 6.90039C9.86531 6.90039 8.60645 8.16992 8.60645 9.73597C8.60645 11.302 9.86531 12.5716 11.4182 12.5716Z" stroke="#071739" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_298_16240">
+                                                        <rect width="22.494" height="22.6847" transform="translate(0.171387 0.28418)"/>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                `,
+                                //iconSize: [60, 40],
+                                //iconAnchor: [30, 40] // bottom center
+                            })
+                        });
+                    },
+                    onEachFeature: function(feature, layer) {
+                        // For department polygons (not points)
+                        if (feature.properties && feature.properties.NOMBRE && feature.geometry.type !== 'Point') {
+                            // Show department name in the center of the polygon
+                            const deptName = feature.properties && feature.properties.NOMBRE ? feature.properties.NOMBRE.toLowerCase() : null;
+                            console.log(deptName)
+                            const offset = tooltipOffsets[deptName] || [0, 20];
+                            
+                            layer.bindTooltip(
+                                `<span style="font-family: Montserrat;font-weight: 700; font-size: 12px; padding: 2px 6px;">${feature.properties.NOMBRE.toUpperCase()}</span>`,
+                                {
+                                    permanent: true,
+                                    direction: 'center', // changed from 'top' to 'center' to remove arrow
+                                    className: 'polygon-label',
+                                    interactive: false,
+                                    offset: offset
+                                }
+                            );
+                            const videoUrl = videoUrls[feature.properties.NOMBRE];
+                            // open video when click anywhere in the polygon
+                            layer.on('click', function() {
+                                if (videoUrl) {
+                                    modal.style.display = "block";
+                                    videoContainer.innerHTML = `
+                                    <video width="100%" height="100%" controls>
+                                        <source src="${videoUrl}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>`;
+                                }
+                            });
+                            // Highlight on hover
+                            layer.on('mouseover', function(e) {
+                                this.setStyle({
+                                    fillColor: '#A4B5C4',
+                                    fillOpacity: 0.7,
+                                    color: '#A4B5C4',
+                                    weight: 3
+                                });
+                                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                                    this.bringToFront();
+                                }
+                            });
+                            layer.on('mouseout', function(e) {
+                                geoJsonLayer.resetStyle(this);
+                            });
+                        }
+                        // For capital points
+                        if (feature.geometry.type === 'Point' && feature.properties && feature.properties.name && videoUrls[feature.properties.name]) {
+                            const videoUrl = videoUrls[feature.properties.name];
+                            layer.on('click', function() {
+                                if (videoUrl) {
+                                    modal.style.display = "block";
+                                    videoContainer.innerHTML = `
+                                    <video controlsList="nodownload" width="100%" height="100%" controls>
+                                        <source src="${videoUrl}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>`;
+                                }
+                            });
+                        }
+                    }
+                }).addTo(map);
+
+                // Fit the map to the GeoJSON bounds
+                const bounds = geoJsonLayer.getBounds();
+                const paddedBounds = bounds.pad(0.1);  // 10% padding
+                map.fitBounds(bounds);
+                map.setMaxBounds(paddedBounds);
+                map.setMinZoom(7);  // Minimum zoom level
+                map.setMaxZoom(14);
+                map.on('drag', function() {
+                    map.panInsideBounds(paddedBounds, { animate: false });
+                });
+            });
+    </script>
+{% endblock scriptPlus %}
+
+{% block content %}
+<div class="mapa-container">
+  <!-- Side Menu -->
+  <div data-property-1="azul3" class="mapa-sidebar">
+        <div class="mapa-sidebar-feature">
+            <img class="mapa-sidebar-feature-img" src="{% static 'web/img/logo-mapa.png' %}" />
+        </div>
+        <div class="mapa-sidebar-content">
+        {% for dept, dept_name in departments.items %}
+        <div class="mapa-menu-item" data-name="{{ dept }}">
+            <div class="mapa-menu-item-label">
+            <div class="mapa-menu-item-text">{{ dept_name }}</div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+  </div>
+  <!-- Map -->
+  <div id="map"></div>
+  <div id="videoModal">
+      <div>
+          <span id="closeModal">&times;</span>
+          <div id="videoContainer"></div>
+      </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.mapa-menu-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        const name = this.getAttribute('data-name');
+        const videoUrl = videoUrls[name] || videoUrls[name && name.toUpperCase()] || videoUrls[name && name.toLowerCase()];
+        if (videoUrl) {
+          modal.style.display = "block";
+          videoContainer.innerHTML = `
+            <video controlsList="nodownload" width="100%" height="100%" controls>
+              <source src="${videoUrl}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>`;
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

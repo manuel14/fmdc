@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^imagenesLaterales/$', views.imgLaterales, name='imagenesLaterales'),
     url(r'^radio/$', views.radio, name='radio'),
     url(r'^revistas/$', views.revistas, name='revistas'),
+    url(r'^mapa/$', views.mapa, name='mapa'),
     url(r'^editoriales/$', views.editoriales, name='editoriales'),
     url(r'^editorial/(?P<pk>[0-9]+)/$', views.editorial, name='editorial'),
     url(r'^revista/(?P<pk>[0-9]+)/$', views.revista, name='revista'),

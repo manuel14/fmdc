@@ -1,0 +1,234 @@
+/* --- MAPA PAGE STYLES --- */
+
+.mapa-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+body {
+    background: none;
+}
+
+.mapa-sidebar {
+  width: 302px;
+  height: 1024px;
+  position: relative;
+  background: #A4B5C4;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapa-sidebar-feature {
+  /* width: 296px; */
+  height: 311px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15px;
+  padding-right: 30px;
+  background: #A4B5C4;
+  border-top-right-radius: 20px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.mapa-sidebar-content {
+  width: 100%;
+  max-width: 287px;
+  /* height: 660px; */
+  height: auto;
+  flex: 1 1 auto;
+  display: block;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #000 #A4B5C4;
+}
+
+/* Webkit scrollbar styles */
+.mapa-sidebar-content::-webkit-scrollbar {
+  width: 1px;
+  background: #A4B5C4;
+}
+.mapa-sidebar-content::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 1px;
+}
+
+.mapa-sidebar-item {
+  display: block;
+  /* Remove flex-direction, justify-content, align-items for normal stacking */
+}
+
+.mapa-sidebar-item-inner {
+  width: 100%;
+  height: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: block;
+  /* Remove flex and alignment properties */
+}
+
+.mapa-sidebar-item-label {
+  width: 100%;
+  display: block;
+  /* Remove flex and alignment properties */
+}
+
+.mapa-menu-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.2em 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mapa-menu-item:hover {
+  background: #e0e6ed;
+}
+
+.mapa-menu-item-label {
+  display: block;
+  width: 100%;
+}
+
+.mapa-menu-item-text {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Montserrat";
+  color: #071739;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  box-sizing: border-box;
+}
+
+.mapa-sidebar-feature-icon {
+  width: 52px;
+  height: 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mapa-sidebar-feature-outline {
+  width: 15.17px;
+  height: 30.33px;
+  left: 10.83px;
+  top: 10.83px;
+  position: absolute;
+  outline: 5px #071739 solid;
+  outline-offset: -2.5px;
+}
+
+.mapa-sidebar-feature-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  width: 100%;
+  max-width: 200px;
+  object-fit: cover;
+}
+
+.mapa-sidebar-feature-title {
+  width: 261px;
+  height: 127px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: #071739;
+  font-size: 36px;
+  font-family: 'Fredericka the Great', serif;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+}
+
+.mapa-sidebar-divider {
+  width: 4px;
+  height: 588px;
+  left: 287px;
+  top: 428px;
+  position: absolute;
+  background: #071739;
+  border-radius: 100px;
+}
+
+#map {
+  height: 100vh;
+  width: calc(100vw - 200px);
+  background-color: #F5F5F5;
+  /* color: "#F5F5F5"; */
+}
+
+#videoModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 100px;
+  top: 0;
+  width: 100%;
+  height: 70%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+#videoModal > div {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  margin: 5% auto;
+  background-color: rgba(0,0,0,0.7);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#closeModal {
+  position: absolute;
+  right: 10px;
+  top: -30px;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#videoContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.department-label {
+  /* Existing marker styles if any */
+}
+
+.leaflet-tooltip.polygon-label {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Highlighted polygon style */
+.polygon-highlight {
+  fill: #FFD700 !important;
+  fill-opacity: 0.7 !important;
+  stroke: #FF9800 !important;
+  stroke-width: 3 !important;
+  cursor: pointer;
+}

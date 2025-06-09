@@ -278,8 +278,49 @@ def editorial(request, pk=None):
     return render(
         request,
         "web/editorial.html",
-        {'editorial': editorial }
-    ) 
+        {'editorial': editorial}
+    )
+
+
+def mapa(request):
+    # video_url = f"{settings.MEDIA_URL}/files/corrientes_mapa.MP4"
+    video_url = f"{settings.MEDIA_URL}mapa/videos/corrientes_mapa.MP4"
+    print(video_url)
+    alvear = f"{settings.MEDIA_URL}mapa/videos/ALVEAR.mp4"
+    paso = f"{settings.MEDIA_URL}mapa/videos/PASODELOSLIBRES.mp4"
+    videos_map = {"corrientes": video_url,
+                  "pasodeloslibres": paso, "alvear": alvear}
+    departments = {
+        "alvear": "Alvear",
+        "bellavista": "Bella Vista",
+        "berondeastrada": "Berón de Astrada",
+        "caacati": "Caá Catí",
+        "corrientes": "Corrientes",
+        "concepcion": "Concepción",
+        "curuzucuatia": "Curuzú Cuatiá",
+        "empedrado": "Empedrado",
+        "esquina": "Esquina",
+        "goya": "Goya",
+        "itati": "Itatí",
+        "ituzaingo": "Ituzaingó",
+        "lacruz": "La Cruz",
+        # "lavalle": "Lavalle",
+        "pasodeloslibres": "Paso de los Libres",
+        "mburucuya": "Mburucuyá",
+        "sanmartin": "San Martín",
+        "montecaseros": "Monte Caseros",
+        "sanroque": "San Roque",
+        "saladas": "Saladas",
+        "sancosme": "San Cosme",
+        "sanluisdelpalmar": "San Luis del Palmar",
+        "sanmiguel": "San Miguel",
+        "santotome": "Santo Tomé",
+        "santalucia": "Santa Lucía",
+        "sauce": "Sauce",
+    }
+    return render(request, "web/mapa.html", {"maps_api_key": settings.GOOGLE_MAPS_API_KEY, "departments": departments,
+                                             "videoUrls": json.dumps(videos_map)})
+
 
 def error404(request, exception=None):
     return render(request, 'web/404.html')
