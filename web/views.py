@@ -9,6 +9,7 @@ from datetime import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Q, F
 from django.core.paginator import Paginator
+from django.conf import settings
 
 
 from .models import (
