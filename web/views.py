@@ -286,7 +286,6 @@ def editorial(request, pk=None):
 def mapa(request):
     # video_url = f"{settings.MEDIA_URL}/files/corrientes_mapa.MP4"
     video_url = f"{settings.MEDIA_URL}mapa/videos/corrientes_mapa.MP4"
-    print(video_url)
     alvear = f"{settings.MEDIA_URL}mapa/videos/ALVEAR.mp4"
     paso = f"{settings.MEDIA_URL}mapa/videos/PASODELOSLIBRES.mp4"
     videos_map = {"corrientes": video_url,
@@ -319,7 +318,7 @@ def mapa(request):
         "santalucia": "Santa Lucía",
         "sauce": "Sauce",
     }
-    return render(request, "web/mapa.html", {"maps_api_key": settings.GOOGLE_MAPS_API_KEY, "departments": departments,
+    return render(request, "web/mapa.html", {"departments": departments,
                                              "videoUrls": json.dumps(videos_map)})
 
 
