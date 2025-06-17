@@ -41,25 +41,25 @@
         }
 
         const tooltipOffsets = {
-                "corrientes": [0, 20],
-                "san cosme": [0, 20],
+                "corrientes": [-30, 20],
+                "san cosme": [50, 20],
                 "empedrado": [0, 40],
                 "goya": [0, -30],
                 "monte caseros": [0, 30],
                 "curuzu cuatia": [0, 25],
                 "paso de los libres": [0, 50],
                 "santo tome": [0, 20],
-                "mercedes": [0, 40],
+                "mercedes": [-10, 50],
                 "beron de astrada": [0, 30],
-                "san luis del palmar": [0, 10],
+                "san luis del palmar": [0, 20],
                 "itati": [0, 0],
                 "mburucuya": [0, 30],
-                "saladas": [0, 30],
+                "saladas": [0, 35],
                 "ituzaingo": [0, -30],
-                "santo tome": [0, 85],
+                "santo tome": [20, 90],
                 "san martin": [40, 90],
-                "general alvear": [45, 80],
-                "bella vista": [0, 30],
+                "general alvear": [55, 80],
+                "bella vista": [-20, 30],
                 "san roque": [0, 0],
                 "sauce": [0, 45],
                 "san miguel": [0, 50],
@@ -86,7 +86,8 @@
                         weight: 1,
                         fillColor: '#FFEFB6',
                         fillOpacity: 1,
-                        weight: 1
+                        weight: 1.5,
+                        opacity: 0.1
                     },
                     pointToLayer: function (feature, latlng) {
                         // Use your custom marker for points, but without the department name
@@ -124,7 +125,7 @@
                             const offset = tooltipOffsets[deptName] || [0, 20];
                             
                             layer.bindTooltip(
-                                `<span style="font-family: Montserrat;font-weight: 700; font-size: 12px; padding: 2px 6px;">${feature.properties.NOMBRE.toUpperCase()}</span>`,
+                                `<span style="font-family: Montserrat;font-weight: 700; font-size: 14px; padding: 2px 6px;">${feature.properties.NOMBRE.toUpperCase()}</span>`,
                                 {
                                     permanent: true,
                                     direction: 'center', // changed from 'top' to 'center' to remove arrow
@@ -196,26 +197,39 @@
 <div class="mapa-container">
   <!-- Side Menu -->
   <div data-property-1="azul3" class="mapa-sidebar">
-        <div class="mapa-sidebar-feature">
-            <img class="mapa-sidebar-feature-img" src="{% static 'web/img/logo-mapa.png' %}" />
+    <a href="{% url 'index' %}" class="mapa-back-arrow">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        
+        <path d="M19.5 24L12 16L19.5 8" stroke="#071739" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <div class="mapa-sidebar-feature">
+      <img class="mapa-sidebar-feature-img" src="{% static 'web/img/logo-mapa.png' %}" />
+    </div>
+    <div class="mapa-sidebar-content">
+      {% for dept, dept_name in departments.items %}
+      <div class="mapa-menu-item" data-name="{{ dept }}">
+        <div class="mapa-menu-item-label">
+          <div class="mapa-menu-item-text">{{ dept_name }}</div>
         </div>
-        <div class="mapa-sidebar-content">
-        {% for dept, dept_name in departments.items %}
-        <div class="mapa-menu-item" data-name="{{ dept }}">
-            <div class="mapa-menu-item-label">
-            <div class="mapa-menu-item-text">{{ dept_name }}</div>
-            </div>
-        </div>
-        {% endfor %}
-        </div>
-  </div>
-  <!-- Map -->
-  <div id="map"></div>
-  <div id="videoModal">
-      <div>
-          <span id="closeModal">&times;</span>
-          <div id="videoContainer"></div>
       </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Map Content Area: Title above Map -->
+  <div class="mapa-content-area">
+    <div id="tituloMapa">
+      <p>EXPLORA EL MAPA:<br>
+      HACÉ CLICK EN UNA LOCALIDAD PARA DESCUBRIR<br>
+      SOBRE ELLA.</p>
+    </div>
+    <div id="map"></div>
+    <div id="videoModal">
+      <div>
+        <span id="closeModal">&times;</span>
+        <div id="videoContainer"></div>
+      </div>
+    </div>
   </div>
 </div>
 <script>
