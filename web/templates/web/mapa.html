@@ -76,12 +76,7 @@
 
         // Initialize the map
         const map = L.map('map');
-
-        // Add OpenStreetMap tiles
-        //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            //maxZoom: 20,
-            //attribution: '© OpenStreetMap contributors'
-        //}).addTo(map);
+        let originalZoom;
 
         // Fetch and load the GeoJSON data
         fetch("{% static 'geo/modificado.geojson' %}")
@@ -192,7 +187,8 @@
                 const paddedBounds = bounds.pad(0.1);  // 10% padding
                 map.fitBounds(bounds);
                 map.setMaxBounds(paddedBounds);
-                map.setMinZoom(7);  // Minimum zoom level
+                originalZoom = map.getZoom(); // Store the original zoom after fitBounds
+                map.setMinZoom(originalZoom); // Prevent zooming out more than original
                 map.setMaxZoom(14);
                 map.on('drag', function() {
                     map.panInsideBounds(paddedBounds, { animate: false });
