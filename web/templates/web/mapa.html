@@ -49,25 +49,25 @@
         }
 
         const tooltipOffsets = {
+                "alvear": [55, 80],
+                "bella vista": [-20, 30],
+                "beron de astrada": [0, 30],
                 "corrientes": [-30, 20],
-                "san cosme": [50, 20],
+                "curuzu cuatia": [0, 25],
                 "empedrado": [0, 40],
                 "goya": [0, -30],
-                "monte caseros": [0, 30],
-                "curuzu cuatia": [0, 25],
-                "paso de los libres": [0, 50],
-                "santo tome": [0, 20],
-                "mercedes": [-10, 50],
-                "beron de astrada": [0, 30],
-                "san luis del palmar": [0, 20],
                 "itati": [0, 0],
-                "mburucuya": [0, 30],
-                "saladas": [0, 35],
                 "ituzaingo": [0, -30],
+                "la cruz": [40, 90],
+                "mburucuya": [0, 30],
+                "mercedes": [-10, 50],
+                "monte caseros": [0, 30],
+                "paso de los libres": [0, 50],
+                "san cosme": [50, 20],
+                "san luis del palmar": [0, 20],
+                "santo tome": [0, 20],
+                "saladas": [0, 35],
                 "santo tome": [20, 90],
-                "san martin": [40, 90],
-                "general alvear": [55, 80],
-                "bella vista": [-20, 30],
                 "san roque": [0, 0],
                 "sauce": [0, 45],
                 "san miguel": [0, 50],
@@ -120,15 +120,15 @@
                         });
                     },
                     onEachFeature: function(feature, layer) {
+                        let name = feature.properties.name?.split(" ").join("").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
                         // For department polygons (not points)
-                        if (feature.properties && feature.properties.NOMBRE && feature.geometry.type !== 'Point') {
+                        if (feature.properties && feature.properties.name && feature.geometry.type !== 'Point') {
                             // Show department name in the center of the polygon
-                            const deptName = feature.properties && feature.properties.NOMBRE ? feature.properties.NOMBRE.toLowerCase() : null;
-                            console.log(deptName)
+                            const deptName = feature.properties && feature.properties.name ? feature.properties.name.toLowerCase() : null;
                             const offset = tooltipOffsets[deptName] || [0, 20];
                             
                             layer.bindTooltip(
-                                `<span style="font-family: Montserrat;font-weight: 700; font-size: 14px; padding: 2px 6px;">${feature.properties.NOMBRE.toUpperCase()}</span>`,
+                                `<span style="font-family: Montserrat;font-weight: 700; font-size: 14px; padding: 2px 6px;">${feature.properties.name.toUpperCase()}</span>`,
                                 {
                                     permanent: true,
                                     direction: 'center', // changed from 'top' to 'center' to remove arrow
@@ -137,7 +137,7 @@
                                     offset: offset
                                 }
                             );
-                            const videoUrl = videoUrls[feature.properties.NOMBRE];
+                            const videoUrl = videoUrls[name]
                             // open video when click anywhere in the polygon
                             layer.on('click', function() {
                                 if (videoUrl) {
@@ -166,8 +166,8 @@
                             });
                         }
                         // For capital points
-                        if (feature.geometry.type === 'Point' && feature.properties && feature.properties.name && videoUrls[feature.properties.name]) {
-                            const videoUrl = videoUrls[feature.properties.name];
+                        if (feature.geometry.type === 'Point' && feature.properties && feature.properties.name && videoUrls[name]) {
+                            const videoUrl = videoUrls[name];
                             layer.on('click', function() {
                                 if (videoUrl) {
                                     modal.style.display = "block";
@@ -242,8 +242,8 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.mapa-menu-item').forEach(function(item) {
-      item.addEventListener('click', function() {
-        const name = this.getAttribute('data-name');
+      item.addEventListener('click', function(event) {
+        let name = this.getAttribute('data-name');
         const videoUrl = videoUrls[name] || videoUrls[name && name.toUpperCase()] || videoUrls[name && name.toLowerCase()];
         if (videoUrl) {
           modal.style.display = "block";
@@ -252,7 +252,7 @@
               <source src="${videoUrl}" type="video/mp4">
               Your browser does not support the video tag.
             </video>`;
-        }
+        } 
       });
     });
   });

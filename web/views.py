@@ -22,6 +22,7 @@ from .models import (
     EfemerideMes,
     Revista
 )
+from .constants import DEPARTMENTS
 from web.folder_service import FolderService
 
 folder_service = FolderService()
@@ -284,12 +285,8 @@ def editorial(request, pk=None):
 
 
 def mapa(request):
-    # video_url = f"{settings.MEDIA_URL}/files/corrientes_mapa.MP4"
-    video_url = f"{settings.MEDIA_URL}mapa/videos/corrientes_mapa.MP4"
-    alvear = f"{settings.MEDIA_URL}mapa/videos/ALVEAR.mp4"
-    paso = f"{settings.MEDIA_URL}mapa/videos/PASODELOSLIBRES.mp4"
-    videos_map = {"corrientes": video_url,
-                  "pasodeloslibres": paso, "alvear": alvear}
+    videos_map = {
+        k: f"{settings.MEDIA_URL}mapa/videos/{k}.mp4" for k in DEPARTMENTS}
     departments = {
         "alvear": "Alvear",
         "bellavista": "Bella Vista",
@@ -304,7 +301,6 @@ def mapa(request):
         "itati": "Itatí",
         "ituzaingo": "Ituzaingó",
         "lacruz": "La Cruz",
-        # "lavalle": "Lavalle",
         "pasodeloslibres": "Paso de los Libres",
         "mburucuya": "Mburucuyá",
         "sanmartin": "San Martín",
@@ -314,8 +310,8 @@ def mapa(request):
         "sancosme": "San Cosme",
         "sanluisdelpalmar": "San Luis del Palmar",
         "sanmiguel": "San Miguel",
-        "santotome": "Santo Tomé",
         "santalucia": "Santa Lucía",
+        "santotome": "Santo Tomé",
         "sauce": "Sauce",
     }
     return render(request, "web/mapa.html", {"departments": departments,
