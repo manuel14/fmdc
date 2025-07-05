@@ -257,4 +257,14 @@
     });
   });
 </script>
+<script>
+// Ensure the map resizes correctly after all layout/rendering is done
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    if (typeof map !== 'undefined' && map.invalidateSize) {
+      map.invalidateSize();
+    }
+  }, 100); // Delay ensures all fonts/images/layouts are loaded
+});
+</script>
 {% endblock %}
