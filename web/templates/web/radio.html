@@ -11,6 +11,34 @@
 	<script src="{% static 'web/js/playlist.js' %}"></script>
 	<script src="{% static 'web/js/nodownload.js' %}"></script>
 	<script src="{% static 'web/js/collapsible.js' %}"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+				document.querySelectorAll('.collapsible').forEach(function (btn) {
+					btn.addEventListener('click', function (e) {
+						var targetId = btn.getAttribute('data-target');
+						var container = document.getElementById(targetId);
+						if (container) {
+							// Remove all previous audio elements in this container
+							container.querySelectorAll('audio').forEach(function (audio) {
+								audio.parentNode.removeChild(audio);
+							});
+							// For each track, create a new audio element
+							container.querySelectorAll('.track').forEach(function (trackDiv) {
+								var url = trackDiv.getAttribute('data-url');
+								var audio = document.createElement('audio');
+								audio.controls = true;
+								audio.src = url;
+								audio.style.display = 'block';
+								var placeholder = trackDiv.querySelector('.audio-placeholder');
+								placeholder.innerHTML = '';
+								placeholder.appendChild(audio);
+							});
+						}
+					});
+				});
+			});
+
+	</script>
 {% endblock scriptPlus %}
 
 {% block content %}
@@ -21,26 +49,21 @@
                 <button
                     type="button"
                     class="collapsible btn btn-primary"
+                    data-target="tracksContainer_{{forloop.counter}}"
                 >
                 {{content_name|capfirst}}
                 </button>
 				<div class="collapse-content" id="{{content_name}}">
 					<div class="well">
 						<div class="clearfix">
-							<div class="tracksContainer" id="dasdas">
-                                {% for track in tracks  %}
-                                    <div class="track">
-                                        <figcaption class="tracksCaption">{{track.name|capfirst}}</figcaption>
-                                        <audio
-                                            controls
-                                            src="{{track.url}}">
-                                                Your browser does not support the
-                                                <code>audio</code> element.
-                                        </audio>
-                                    </div>
-                                {% endfor %}
-                                    
-							</div>
+							<div class="tracksContainer" id="tracksContainer_{{forloop.counter}}">
+    {% for track in tracks  %}
+        <div class="track" data-url="{{track.url}}">
+            <figcaption class="tracksCaption">{{track.name|capfirst}}</figcaption>
+            <span class="audio-placeholder"></span>
+        </div>
+    {% endfor %}
+</div>
 						</div>
 					</div>
 				</div>
@@ -48,3 +71,4 @@
 		{% endfor %}
 	</div>
 {% endblock content %}
+
