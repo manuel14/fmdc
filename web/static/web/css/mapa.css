@@ -322,3 +322,10 @@ html, body {
     width: 100%; 
   }
 }
+
+@media (max-width: 1440px) {
+  #tituloMapa > p {
+    font-size: 18px;
+    height: 1vh
+  }
+}
