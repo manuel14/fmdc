@@ -129,7 +129,7 @@
                             const deptName = feature.properties && feature.properties.name ? feature.properties.name.toLowerCase() : null;
                             const offset = tooltipOffsets[deptName] || [0, 20];
 
-                            if (window.innerHeight < 1024) {
+                            if (window.innerHeight < 780) {
                                 layer.bindTooltip(
                                     `<span style="font-family: Montserrat; font-weight: 700; font-size: 14px; padding: 2px 6px;">${deptName.toUpperCase()}</span>`,
                                     { permanent: false, direction: 'center', className: 'polygon-label', offset: [0, 0] }
@@ -140,6 +140,17 @@
                                 layer.on('mouseout', function (e) {
                                     layer.closeTooltip();
                                 });
+                            } else {
+                                layer.bindTooltip(
+                                    `<span style="font-family: Montserrat;font-weight: 700; font-size: 14px; padding: 2px 6px;">${feature.properties.name.toUpperCase()}</span>`,
+                                    {
+                                        permanent: true,
+                                        direction: 'center',
+                                        className: 'polygon-label',
+                                        interactive: false,
+                                        offset: offset
+                                    }
+                                );
                             }
                             
                             
