@@ -216,9 +216,13 @@ html, body {
 }
 
 #map {
+  display: flex;
+  flex: 1 1 auto;
   margin-top: 50px;
   height: 100%;
   width: 100%;
+  min-width: 0;
+  min-height: 0;
   background-color: #F5F5F5;
   flex: 1 1 auto;
   overflow: hidden;
@@ -301,26 +305,11 @@ html, body {
 }
 
 @media (max-width: 1024px) {
-  .mapa-container {
-    height: 100vh;
-    min-height: 0;
-    min-width: 0;
-  }
+  
   #tituloMapa {
     display: none;
   }
   
-  .mapa-content-area {
-    width: 100vw;
-    height: 100vh;
-    min-height: 0;
-    min-width: 0;
-  }
-  #map {
-    height: 100vh;
-    margin-top: 0;
-    width: 100%; 
-  }
 }
 
 @media (max-width: 1440px) {
