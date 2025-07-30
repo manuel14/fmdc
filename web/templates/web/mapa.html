@@ -90,7 +90,9 @@
                         fillColor: '#FFEFB6',
                         fillOpacity: 1,
                         weight: 1.5,
-                        opacity: 0.1
+                        opacity: 0.1,
+                        interactive: true,
+                        bubblingMouseEvents: true
                     },
                     pointToLayer: function (feature, latlng) {
                         // Use your custom marker for points, but without the department name
@@ -127,29 +129,21 @@
                             const deptName = feature.properties && feature.properties.name ? feature.properties.name.toLowerCase() : null;
                             const offset = tooltipOffsets[deptName] || [0, 20];
 
-                            /* if (window.innerHeight < 780) {
-                                // Show tooltip only on hover
+                            if (window.innerHeight < 780) {
+                                layer.bindTooltip(
+                                    `<span style="font-family: Montserrat; font-weight: 700; font-size: 14px; padding: 2px 6px;">${deptName.toUpperCase()}</span>`,
+                                    { permanent: false, direction: 'center', className: 'polygon-label', offset: [0, 0] }
+                                );
                                 layer.on('mouseover', function (e) {
-                                    layer.bindTooltip(
-                                        `<span style="font-family: Montserrat; font-weight: 700; font-size: 14px; padding: 2px 6px;">${deptName.toUpperCase()}</span>`,
-                                        { permanent: false, direction: 'top', className: 'polygon-label', offset: [0, 0] }
-                                    ).openTooltip();
+                                    console.log('Mouse over:', deptName);
+                                    layer.openTooltip();
                                 });
                                 layer.on('mouseout', function (e) {
                                     layer.closeTooltip();
                                 });
-                            } */
+                            }
                             
-                            layer.bindTooltip(
-                                `<span style="font-family: Montserrat;font-weight: 700; font-size: 14px; padding: 2px 6px;">${feature.properties.name.toUpperCase()}</span>`,
-                                {
-                                    permanent: true,
-                                    direction: 'center', // changed from 'top' to 'center' to remove arrow
-                                    className: 'polygon-label',
-                                    interactive: false,
-                                    offset: offset
-                                }
-                            );
+                            
                             const videoUrl = videoUrls[name]
                             // open video when click anywhere in the polygon
                             layer.on('click', function() {

@@ -319,9 +319,7 @@ html, body {
 }
 
 @media (max-height: 780px) {
-  #tituloMapa {
-    display: none !important;
-  }
+  
   .leaflet-tooltip.polygon-label {
     display: none !important;
   }
