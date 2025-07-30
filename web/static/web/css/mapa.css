@@ -322,4 +322,7 @@ html, body {
   #tituloMapa {
     display: none !important;
   }
+  .leaflet-tooltip.polygon-label {
+    display: none !important;
+  }
 }
