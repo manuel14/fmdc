@@ -317,3 +317,9 @@ html, body {
     height: 1vh
   }
 }
+
+@media (max-height: 780px) {
+  #tituloMapa {
+    display: none !important;
+  }
+}
