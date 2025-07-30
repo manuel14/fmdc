@@ -303,13 +303,6 @@ html, body {
   display: block;
 }
 
-@media (max-width: 1024px) {
-  
-  #tituloMapa {
-    display: none;
-  }
-  
-}
 
 @media (max-width: 1440px) {
   #tituloMapa > p {
