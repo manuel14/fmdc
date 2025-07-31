@@ -310,10 +310,3 @@ html, body {
     height: 1vh
   }
 }
-
-@media (max-height: 780px) {
-  
-  .leaflet-tooltip.polygon-label {
-    display: none !important;
-  }
-}
