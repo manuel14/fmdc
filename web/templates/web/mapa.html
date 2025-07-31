@@ -129,7 +129,7 @@
                             const deptName = feature.properties && feature.properties.name ? feature.properties.name.toLowerCase() : null;
                             const offset = tooltipOffsets[deptName] || [0, 20];
 
-                            if ((window.innerHeight < 849) || (window.innerWidth <= 1440)) {
+                            if (window.innerWidth < 1440) {
                                 console.log("Setting tooltip for department:", deptName);
                                 layer.bindTooltip(
                                     `<span style="font-family: Montserrat; font-weight: 700; font-size: 14px; padding: 2px 6px;">${deptName.toUpperCase()}</span>`,
