@@ -129,7 +129,8 @@
                             const deptName = feature.properties && feature.properties.name ? feature.properties.name.toLowerCase() : null;
                             const offset = tooltipOffsets[deptName] || [0, 20];
 
-                            if ((window.innerHeight < 780) || (window.innerWidth <= 1440)) {
+                            if ((window.innerHeight < 849) || (window.innerWidth <= 1440)) {
+                                console.log("Setting tooltip for department:", deptName);
                                 layer.bindTooltip(
                                     `<span style="font-family: Montserrat; font-weight: 700; font-size: 14px; padding: 2px 6px;">${deptName.toUpperCase()}</span>`,
                                     { permanent: false, direction: 'center', className: 'polygon-label', offset: [0, 0], interactive: true, bubblingMouseEvents: true }
@@ -206,9 +207,9 @@
                 const paddedBounds = bounds.pad(0.1);  // 10% padding
                 map.setMaxBounds(paddedBounds);
                 map.fitBounds(bounds);
-                if (window.innerHeight < 780) {
+                if (window.innerHeight <= 1024) {
                     
-                    let higherZoom = Math.max(map.getZoom(), 7); // or your desired zoom level
+                    let higherZoom = Math.max(map.getZoom(), 7.4); // or your desired zoom level
                     map.setZoom(higherZoom);
                     map.setMinZoom(higherZoom);
                 } else {
