@@ -1,6 +1,7 @@
 /* --- MAPA PAGE STYLES --- */
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -29,7 +30,8 @@ html, body {
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Ensures children don't overflow the radius */
+  overflow: hidden;
+  /* Ensures children don't overflow the radius */
 }
 
 .mapa-sidebar-feature {
@@ -64,6 +66,7 @@ html, body {
   width: 1px;
   background: #A4B5C4;
 }
+
 .mapa-sidebar-content::-webkit-scrollbar-thumb {
   background: #000;
   border-radius: 1px;
@@ -100,6 +103,7 @@ html, body {
   cursor: pointer;
   transition: background 0.15s;
 }
+
 .mapa-menu-item:hover {
   background: #E3C39D;
 }
@@ -148,7 +152,8 @@ html, body {
   width: 100%;
   max-width: 200px;
   object-fit: contain;
-  filter: brightness(0.1); /* Darken the logo */
+  filter: brightness(0.1);
+  /* Darken the logo */
 }
 
 .logo-text {
@@ -200,19 +205,19 @@ html, body {
 }
 
 #tituloMapa {
-    height: 5vh;
-    z-index: 2;
+  height: 5vh;
+  z-index: 2;
 }
 
-#tituloMapa > p {
-    font-family: 'Fredericka the Great';
-    text-align: center;
-    font-size: 32px;
-    font-weight: 700;
-    color: #071739;
-    margin: 0;
-    padding: 0.5em 0 0.2em 0;
-    z-index: 2;
+#tituloMapa>p {
+  font-family: 'Fredericka the Great';
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #071739;
+  margin: 0;
+  padding: 0.5em 0 0.2em 0;
+  z-index: 2;
 }
 
 #map {
@@ -235,15 +240,15 @@ html, body {
   top: 0;
   width: 100%;
   height: 70%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-#videoModal > div {
+#videoModal>div {
   position: relative;
   width: 80%;
   height: 80%;
   margin: 5% auto;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 20px;
   border-radius: 10px;
 }
@@ -260,11 +265,10 @@ html, body {
 #videoContainer {
   width: 100%;
   height: 100%;
+  align-items: center;
+  background: transparent !important;
 }
 
-.department-label {
-  /* Existing marker styles if any */
-}
 
 .leaflet-tooltip.polygon-label {
   border: none !important;
@@ -296,17 +300,242 @@ html, body {
   text-decoration: none;
   transition: background 0.15s;
 }
+
 .mapa-back-arrow:hover {
   background: #E3C39D;
 }
+
 .mapa-back-arrow svg {
   display: block;
 }
 
+#mapaNavBar {
+  display: none
+}
+
+#mapa-content-area-mobile {
+  display: none
+}
+
 
 @media (max-width: 1440px) {
-  #tituloMapa > p {
+  #tituloMapa>p {
     font-size: 18px;
     height: 1vh
+  }
+}
+
+@media (max-width: 425px) {
+  #backArrowMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #closeModalMobile {
+    z-index: 2001;
+    position: absolute;
+    right: 5px;
+    top: -15px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+
+  .dropdown-item {
+    display: flex;
+    height: 48px;
+    padding: 8px 12px;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+    font-weight: 700;
+    font-family: "roboto";
+    font-size: 16px;
+    color: #071739;
+    transition: background 0.15s;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus {
+    background: #E3C39D;
+  }
+
+  .dropdown-menu {
+    margin-top: 0;
+    background: #A4B5C4;
+    min-width: 60vw !important;
+    width: 60vw !important;
+    position: fixed !important;
+    right: 0 !important;
+    left: auto !important;
+    top: 64px !important;
+    /* height of navbar */
+    box-sizing: border-box;
+    z-index: 1002;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #071739 #A4B5C4;
+  }
+
+  .dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+    background: #A4B5C4;
+  }
+
+  .dropdown-menu::-webkit-scrollbar-thumb {
+    background: #071739;
+    border-radius: 8px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+    font-family: 'Fredericka the Great';
+  }
+
+  .mapa-container {
+    display: none;
+  }
+
+  #mapaNavBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100vw;
+    height: 64px;
+    background-color: #A4B5C4;
+    padding: 8px 4px 8px 0;
+    gap: 12px;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  #mapaNavBar .mapa-back-arrow {
+    position: static;
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  #mapaNavBar .mapa-back-arrow svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  #mapaNavBar .logo-text {
+    margin: 0 8px 0 0;
+    font-size: 18px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  #mapaNavBar .logo-mobile {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  .mapa-sidebar {
+    display: none;
+  }
+
+  .mapa-sidebar-feature-img-mobile {
+    width: 78px;
+    height: 39px;
+    object-fit: contain;
+    aspect-ratio: 2/1;
+  }
+
+  .navBarDropdownBtn {
+    background-color: transparent;
+    gap: 10px;
+    padding: 8px;
+    margin-left: auto;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #mapa-content-area-mobile {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: calc(100vh - 64px);
+    width: 110vw;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+
+  #mapMobile {
+    flex: 1 1 auto;
+    height: 100%;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    background-color: #F5F5F5;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+
+  #tituloMapaMobile {
+    font-family: 'Montserrat';
+    font-size: 18px;
+    font-weight: 700;
+    color: #071739;
+    text-align: center;
+  }
+
+  #videoModalMobile {
+    display: none;
+    width: 100vw;
+    height: calc(100vh - 64px);
+    position: fixed;
+    left: 0;
+    top: 64px;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+  }
+  #videoModalMobile.active {
+    display: flex;
+  }
+
+  #videoContainerMobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+  }
+
+  #videoContainerMobile video {
+    width: 100%;
+    height: calc(100vh - 64px);
+    object-fit: contain;
+    background: #000;
+  }
+
+  .dropdown-item:hover {
+    background: #E3C39D;
   }
 }
