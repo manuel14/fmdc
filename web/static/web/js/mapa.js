@@ -1,7 +1,14 @@
 // mapa.js
 // Receives: selectors for map, modal, videoContainer, closeModal, and videoUrls object
 
-function initMapa({ mapDiv, modal, videoContainer, closeModal, videoUrls }) {
+function initMapa({
+  mapDiv,
+  modal,
+  videoContainer,
+  closeModal,
+  videoUrls,
+  geojsonUrl,
+}) {
   const mapId = mapDiv.id;
   const map = L.map(mapId);
   let originalZoom;
@@ -54,7 +61,7 @@ function initMapa({ mapDiv, modal, videoContainer, closeModal, videoUrls }) {
     "san miguel": [0, 50],
   };
 
-  fetch(window.geojsonUrl || "/static/geo/modificado.geojson")
+  fetch(geojsonUrl)
     .then((response) => response.json())
     .then((data) => {
       const geoJsonLayer = L.geoJSON(data, {
