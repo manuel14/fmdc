@@ -35,16 +35,20 @@
             let modal;
             let videoContainer;
             let closeModal;
+            let menuItemSelector;
             if (window.innerWidth <= 425) {
                 map = document.getElementById('mapMobile');
                 modal = document.getElementById('videoModalMobile');
                 videoContainer = document.getElementById('videoContainerMobile');
                 closeModal = document.getElementById('closeModalMobile');
+                menuItemSelector = ".dropdown-item";
+
             } else {
                 map = document.getElementById('map');
                 modal = document.getElementById('videoModal');
                 videoContainer = document.getElementById('videoContainer');
                 closeModal = document.getElementById('closeModal');
+                menuItemSelector = ".mapa-menu-item";
             }
             initMapa({
                 mapDiv: map,
@@ -52,7 +56,8 @@
                 videoContainer: videoContainer,
                 closeModal: closeModal,
                 videoUrls: videoUrls,
-                geojsonUrl: "{% static 'geo/modificado.geojson' %}"
+                geojsonUrl: "{% static 'geo/modificado.geojson' %}",
+                menuItemSelector: menuItemSelector,
             });
         });
     </script>

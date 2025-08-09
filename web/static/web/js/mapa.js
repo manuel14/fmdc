@@ -8,6 +8,7 @@ function initMapa({
   closeModal,
   videoUrls,
   geojsonUrl,
+  menuItemSelector,
 }) {
   const mapId = mapDiv.id;
   const map = L.map(mapId);
@@ -203,7 +204,7 @@ function initMapa({
     });
 
   // Dropdown menu video click (mobile)
-  document.querySelectorAll(".dropdown-item").forEach(function (item) {
+  document.querySelectorAll(menuItemSelector).forEach(function (item) {
     item.addEventListener("click", function (event) {
       let name = this.getAttribute("data-name");
       const videoUrl =
@@ -211,11 +212,7 @@ function initMapa({
         videoUrls[name && name.toUpperCase()] ||
         videoUrls[name && name.toLowerCase()];
       if (videoUrl) {
-        if (modal.classList) {
-          modal.classList.add("active");
-        } else {
-          modal.style.display = "block";
-        }
+        modal.style.display = "block";
         videoContainer.innerHTML = `<video controlsList="nodownload" width="100%" height="100%" controls preload="none"><source src="${videoUrl}" type="video/mp4">Your browser does not support the video tag.</video>`;
       }
     });
