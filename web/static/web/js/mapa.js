@@ -77,10 +77,19 @@ function initMapa({
         },
         pointToLayer: function (feature, latlng) {
           if (window.innerWidth > 425) {
+            // Desktop marker (original size)
             return L.marker(latlng, {
               icon: L.divIcon({
                 className: "department-label",
                 html: `<div><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"23\" height=\"23\" viewBox=\"0 0 23 23\" fill=\"none\"><g clip-path=\"url(#clip0_298_16240)\"><path d=\"M19.8534 9.73624C19.8534 16.3526 11.4182 22.0238 11.4182 22.0238C11.4182 22.0238 2.98291 16.3526 2.98291 9.73624C2.98291 7.48011 3.87162 5.31639 5.45354 3.72106C7.03546 2.12574 9.18101 1.22949 11.4182 1.22949C13.6554 1.22949 15.8009 2.12574 17.3828 3.72106C18.9647 5.31639 19.8534 7.48011 19.8534 9.73624Z" stroke=\"#071739\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M11.4182 12.5716C12.9711 12.5716 14.23 11.302 14.23 9.73597C14.23 8.16992 12.9711 6.90039 11.4182 6.90039C9.86531 6.90039 8.60645 8.16992 8.60645 9.73597C8.60645 11.302 9.86531 12.5716 11.4182 12.5716Z" stroke=\"#071739\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></g><defs><clipPath id=\"clip0_298_16240\"><rect width=\"22.494\" height=\"22.6847\" transform=\"translate(0.171387 0.28418)\"/></clipPath></defs></svg></span></div>`,
+              }),
+            });
+          } else {
+            // Mobile marker (smaller size)
+            return L.marker(latlng, {
+              icon: L.divIcon({
+                className: "department-label department-label-mobile",
+                html: `<div><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"14\" viewBox=\"0 0 23 23\" fill=\"none\"><g clip-path=\"url(#clip0_298_16240)\"><path d=\"M19.8534 9.73624C19.8534 16.3526 11.4182 22.0238 11.4182 22.0238C11.4182 22.0238 2.98291 16.3526 2.98291 9.73624C2.98291 7.48011 3.87162 5.31639 5.45354 3.72106C7.03546 2.12574 9.18101 1.22949 11.4182 1.22949C13.6554 1.22949 15.8009 2.12574 17.3828 3.72106C18.9647 5.31639 19.8534 7.48011 19.8534 9.73624Z" stroke=\"#071739\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M11.4182 12.5716C12.9711 12.5716 14.23 11.302 14.23 9.73597C14.23 8.16992 12.9711 6.90039 11.4182 6.90039C9.86531 6.90039 8.60645 8.16992 8.60645 9.73597C8.60645 11.302 9.86531 12.5716 11.4182 12.5716Z" stroke=\"#071739\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></g><defs><clipPath id=\"clip0_298_16240\"><rect width=\"22.494\" height=\"22.6847\" transform=\"translate(0.171387 0.28418)\"/></clipPath></defs></svg></span></div>`,
               }),
             });
           }
