@@ -4,8 +4,6 @@
 function initMapa({ mapDiv, modal, videoContainer, closeModal, videoUrls }) {
   const mapId = mapDiv.id;
   const map = L.map(mapId);
-  console.log(modal);
-  console.log(closeModal);
   let originalZoom;
 
   // Modal close logic
@@ -128,11 +126,8 @@ function initMapa({ mapDiv, modal, videoContainer, closeModal, videoUrls }) {
               );
             }
             const videoUrl = videoUrls[name];
-            console.log("Video URL:", videoUrl);
             layer.on("click", function () {
-              console.log("polgyon clicked");
               if (videoUrl) {
-                console.log("Video URL:", videoUrl);
                 modal.style.display = "block";
                 videoContainer.innerHTML = `<video width="100%" height="100%" controls><source src="${videoUrl}" type="video/mp4">Your browser does not support the video tag.</video>`;
               }
@@ -160,7 +155,6 @@ function initMapa({ mapDiv, modal, videoContainer, closeModal, videoUrls }) {
           ) {
             const videoUrl = videoUrls[name];
             layer.on("click", function () {
-              console.log("Video URL:", videoUrl);
               if (videoUrl) {
                 modal.style.display = "block";
                 videoContainer.innerHTML = `<video controlsList="nodownload" width="100%" height="100%" controls><source src="${videoUrl}" type="video/mp4">Your browser does not support the video tag.</video>`;
