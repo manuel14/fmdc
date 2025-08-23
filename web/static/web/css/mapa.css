@@ -1,3 +1,9 @@
+/* Transparent marker for desktop (JS: department-label-transparent) */
+.department-label-transparent {
+  opacity: 0 !important;
+  pointer-events: auto !important;
+  background: transparent !important;
+}
 /* --- MAPA PAGE STYLES --- */
 
 html,
@@ -573,6 +579,54 @@ body {
     top: 48px !important;
     font-size: 14px;
   }
+  .dropdown-item {
+    height: 36px;
+    font-size: 13px;
+    padding: 4px 8px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 320px) {
+  #mapaNavBar {
+    height: 48px;
+    padding: 2px 2px 2px 0;
+    gap: 2px;
+  }
+
+  #mapaNavBar .mapa-back-arrow {
+    width: 28px;
+    height: 28px;
+    margin-left: 2px;
+    margin-right: px;
+  }
+
+  #mapaNavBar .mapa-back-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  #mapaNavBar .logo-text {
+    font-size: 13px;
+    margin: 0 2px 0 0;
+  }
+
+  #mapaNavBar .logo-mobile {
+    margin-left: 2px;
+  }
+
+  .navBarDropdownBtn {
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .dropdown-menu {
+    min-width: 60vw !important;
+    width: 60vw !important;
+    top: 48px !important;
+    font-size: 14px;
+  }
+
   .dropdown-item {
     height: 36px;
     font-size: 13px;
