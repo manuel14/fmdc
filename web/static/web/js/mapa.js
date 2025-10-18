@@ -177,7 +177,12 @@ function initMapa({
       const paddedBounds = bounds.pad(0.1);
       map.setMaxBounds(paddedBounds);
       map.fitBounds(bounds);
-      if (window.innerWidth <= 425) {
+      if (window.innerWidth <= 320) {
+        let higherZoom = Math.max(map.getZoom(), 6.4);
+        map.setZoom(higherZoom);
+        map.setMinZoom(higherZoom);
+      }
+      else if (window.innerWidth <= 425) {
         let higherZoom = Math.max(map.getZoom(), 7);
         map.setZoom(higherZoom);
         map.setMinZoom(higherZoom);
