@@ -150,12 +150,6 @@ function initMapa({
               layer.setStyle({
                 fillColor: departmentColors[deptName],
               })
-              layer.on("mouseover", function (e) {
-                layer.openTooltip();
-              });
-              layer.on("mouseout", function (e) {
-                layer.closeTooltip();
-              });
             } else {
               layer.bindTooltip(
                 `<span style="font-family: Montserrat;font-weight: 700; font-size: 14px; padding: 2px 6px;">${feature.properties.name.toUpperCase()}</span>`,
