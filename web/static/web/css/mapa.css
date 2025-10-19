@@ -416,7 +416,6 @@ body {
     width: 100vw;
     height: 64px;
     background-color: #A4B5C4;
-    padding: 8px 4px 8px 0;
     gap: 12px;
     top: 0;
     left: 0;
@@ -445,14 +444,14 @@ body {
   }
 
   #mapaNavBar .logo-text {
-    margin: 0 8px 0 0;
+    margin: 0;
     font-size: 18px;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
   #mapaNavBar .logo-mobile {
-    margin-left: 8px;
+    margin-left: 0;
     display: flex;
     align-items: center;
   }
@@ -549,41 +548,44 @@ body {
 
 @media (max-width: 390px) {
   #mapaNavBar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 10px;
-        margin: 0;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    margin: 0;
+  }
 
-    #mapaNavBar > * {
-        flex: 1;
-        text-align: center;
-    }
+  .logo-text {
+    font-size: 10px;
+  }
 
-    .logo-text {
-        font-size: 14px;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  #mapaNavBar > * {
+    flex: 1;
+    text-align: center;
+  }
 
-    .logo-mobile {
-        display: flex;
-        justify-content: center;
-    }
+  .logo-text {
+    font-size: 14px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    .mapa-sidebar-feature-img-mobile {
-        width: auto;
-        height: 24px;
-    }
+  .logo-mobile {
+    display: flex;
+    justify-content: center;
+  }
 
-    .navBarDropdown {
-        display: flex;
-        justify-content: flex-end;
-        position: static;
+  .mapa-sidebar-feature-img-mobile {
+    width: auto;
+    height: 24px;
+  }
 
-    }
+  .navBarDropdown {
+    display: flex;
+    justify-content: flex-end;
+    position: static;
+  }
 }

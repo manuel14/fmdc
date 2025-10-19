@@ -37,22 +37,52 @@ function initMapa({
     });
   }
 
+  const departmentColors = {
+    "alvear": "#C0F2F3",
+    "bella vista": "#BE94E8",
+    "beron de astrada": "#F2FFAB",
+    "caa catí": "#E595AB",
+    "corrientes": "#F3D9AC",
+    "concepcion": "#C0F2F3",
+    "curuzu cuatia": "#DB946E",
+    "empedrado": "#FCFF9F",
+    "esquina": "#FFFFB5",
+    "goya": "#FFD4A7",
+    "itati": "#C7CEFF",
+    "ituzaingo": "#F69FF8",
+    "lavalle": "#A8DDAE",
+    "la cruz": "#DAE1FF",
+    "mburucuya": "#AAFF9E",
+    "mercedes": "#FFEE8E",
+    "monte caseros": "#D5ECF1",
+    "paso de los libres": "#C8C4D1",
+    "san cosme": "#E595AB",
+    "san luis del palmar": "#D3FFDA",
+    "santo tome": "#F6CECF",
+    "san roque": "#EE96DE",
+    "saladas": "#C2BDCE",
+    "santo tome": "#E5DC72",
+    "san roque": "#EEB6B6",
+    "sauce": "#FFEF79",
+    "san miguel": "#B8ACFB"
+  }
+
   const tooltipOffsets = {
     alvear: [55, 80],
     "bella vista": [-20, 30],
-    "beron de astrada": [0, 30],
+    "beron de astrada": [50, -10],
     corrientes: [-30, 20],
     "curuzu cuatia": [0, 25],
     empedrado: [0, 40],
     goya: [0, -30],
     itati: [0, 0],
     ituzaingo: [0, -30],
-    "la cruz": [40, 90],
+    "la cruz": [0, 50],
     mburucuya: [0, 30],
     mercedes: [-10, 50],
     "monte caseros": [0, 30],
     "paso de los libres": [0, 50],
-    "san cosme": [50, 20],
+    "san cosme": [10, 0],
     "san luis del palmar": [0, 20],
     "santo tome": [0, 20],
     saladas: [0, 35],
@@ -75,6 +105,7 @@ function initMapa({
           opacity: 0.1,
           interactive: true,
           bubblingMouseEvents: true,
+
         },
         pointToLayer: function (feature, latlng) {
           if (window.innerWidth > 425) {
@@ -116,6 +147,9 @@ function initMapa({
                   bubblingMouseEvents: true,
                 }
               );
+              layer.setStyle({
+                fillColor: departmentColors[deptName],
+              })
               layer.on("mouseover", function (e) {
                 layer.openTooltip();
               });
@@ -133,6 +167,9 @@ function initMapa({
                   offset: offset,
                 }
               );
+              layer.setStyle({
+                fillColor: departmentColors[deptName],
+              })
             }
             const videoUrl = videoUrls[name];
             layer.on("click", function () {
@@ -143,18 +180,15 @@ function initMapa({
             });
             layer.on("mouseover", function (e) {
               this.setStyle({
-                fillColor: "#A4B5C4",
-                fillOpacity: 0.7,
                 color: "#A4B5C4",
                 weight: 3,
+                fillColor: departmentColors[deptName],
               });
               if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
                 this.bringToFront();
               }
             });
-            layer.on("mouseout", function (e) {
-              geoJsonLayer.resetStyle(this);
-            });
+
           }
           if (
             feature.geometry.type === "Point" &&
